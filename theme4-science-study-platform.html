@@ -1,0 +1,1306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Theme 4 · Science: Why & How — Study Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0f0e0c;
+  --bg-soft:#16140f;
+  --bg-panel:#1c1a14;
+  --bg-card:#211e17;
+  --gold:#c9a96e;
+  --gold-bright:#e3c89a;
+  --gold-dim:#8a7448;
+  --ink:#ece6d8;
+  --ink-soft:#b4ab97;
+  --ink-faint:#7d7563;
+  --line:#3a3528;
+  --line-soft:#2a2620;
+  --green:#7ea872;
+  --green-bg:#1c2a18;
+  --red:#c47b6e;
+  --red-bg:#2a1a16;
+  --blue:#7b9bb0;
+  --rose:#c08a9a;
+  --serif:"Cormorant Garamond",Georgia,serif;
+  --sans:"DM Sans",system-ui,sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-weight:300;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:.025;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- LAYOUT ---------- */
+.app{display:flex;min-height:100vh}
+.sidebar{
+  width:248px;flex-shrink:0;background:var(--bg-soft);
+  border-right:1px solid var(--line);
+  padding:34px 0 40px;position:sticky;top:0;height:100vh;
+  display:flex;flex-direction:column;z-index:50;
+}
+.brand{padding:0 28px 26px;border-bottom:1px solid var(--line-soft)}
+.brand .kicker{font-family:var(--sans);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-dim);font-weight:600}
+.brand h1{font-family:var(--serif);font-weight:600;font-size:25px;line-height:1.12;color:var(--ink);margin-top:9px;letter-spacing:.01em}
+.brand .sub{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--gold);margin-top:5px}
+.nav{margin-top:24px;display:flex;flex-direction:column;gap:2px;padding:0 16px;flex:1}
+.nav button{
+  display:flex;align-items:center;gap:14px;width:100%;text-align:left;
+  background:none;border:none;color:var(--ink-soft);font-family:var(--sans);
+  font-size:14px;font-weight:400;letter-spacing:.02em;padding:13px 14px;border-radius:9px;
+  cursor:pointer;transition:all .22s ease;position:relative;
+}
+.nav button .ix{font-family:var(--serif);font-size:15px;color:var(--gold-dim);width:22px;font-weight:600;transition:color .22s}
+.nav button:hover{background:var(--bg-panel);color:var(--ink)}
+.nav button.active{background:linear-gradient(90deg,rgba(201,169,110,.14),rgba(201,169,110,.03));color:var(--gold-bright)}
+.nav button.active .ix{color:var(--gold)}
+.nav button.active::before{content:"";position:absolute;left:0;top:14%;height:72%;width:3px;background:var(--gold);border-radius:2px}
+.sidebar .foot{padding:18px 28px 0;border-top:1px solid var(--line-soft);margin-top:14px}
+.sidebar .foot p{font-size:11px;color:var(--ink-faint);line-height:1.5}
+.sidebar .foot .prog-wrap{height:4px;background:var(--line-soft);border-radius:3px;margin-top:12px;overflow:hidden}
+.sidebar .foot .prog{height:100%;width:0;background:linear-gradient(90deg,var(--gold-dim),var(--gold));transition:width .4s ease}
+
+/* ---------- MAIN ---------- */
+.main{flex:1;min-width:0;position:relative}
+.view{display:none;animation:fade .5s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.wrap{max-width:1080px;margin:0 auto;padding:56px 52px 90px}
+.page-head{margin-bottom:40px}
+.page-head .eyebrow{font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.page-head h2{font-family:var(--serif);font-size:46px;font-weight:600;line-height:1.04;margin-top:12px;letter-spacing:.005em}
+.page-head .lede{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--ink-soft);margin-top:14px;max-width:680px;line-height:1.45}
+.divider{height:1px;background:linear-gradient(90deg,var(--gold-dim),transparent);margin:34px 0;border:none}
+
+/* ---------- OVERVIEW GRID ---------- */
+.ov-intro{background:var(--bg-soft);border:1px solid var(--line);border-radius:14px;padding:30px 34px;margin-bottom:40px;position:relative;overflow:hidden}
+.ov-intro::after{content:"§";position:absolute;right:24px;top:-12px;font-family:var(--serif);font-size:120px;color:var(--gold);opacity:.05;font-style:italic}
+.ov-intro h3{font-family:var(--serif);font-size:24px;font-weight:600;color:var(--gold-bright);margin-bottom:8px}
+.ov-intro p{color:var(--ink-soft);font-size:15px;max-width:760px}
+.ov-intro .meta{display:flex;gap:28px;margin-top:20px;flex-wrap:wrap}
+.ov-intro .meta div{display:flex;flex-direction:column}
+.ov-intro .meta .n{font-family:var(--serif);font-size:30px;color:var(--gold);font-weight:600;line-height:1}
+.ov-intro .meta .l{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-faint);margin-top:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:18px}
+.lcard{
+  background:var(--bg-card);border:1px solid var(--line);border-radius:13px;padding:24px 22px 22px;
+  cursor:pointer;transition:all .26s cubic-bezier(.2,.7,.3,1);position:relative;overflow:hidden;text-align:left;
+}
+.lcard::before{content:"";position:absolute;left:0;top:0;height:100%;width:0;background:linear-gradient(180deg,var(--gold),var(--gold-dim));transition:width .26s}
+.lcard:hover{transform:translateY(-4px);border-color:var(--gold-dim);background:#26221a}
+.lcard:hover::before{width:4px}
+.lcard .num{font-family:var(--serif);font-size:13px;color:var(--gold);font-weight:600;letter-spacing:.1em}
+.lcard .ttl{font-family:var(--serif);font-size:21px;font-weight:600;color:var(--ink);margin-top:9px;line-height:1.16}
+.lcard .desc{font-size:13px;color:var(--ink-faint);margin-top:11px;line-height:1.5}
+.lcard .tag{display:inline-block;margin-top:16px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dim);border:1px solid var(--line);padding:4px 10px;border-radius:20px}
+
+/* ---------- LESSON VIEW ---------- */
+.lesson-shell{display:none}
+.lesson-shell.active{display:block}
+.lesson-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:8px;flex-wrap:wrap}
+.lesson-pager{display:flex;gap:10px}
+.pg-btn{background:var(--bg-panel);border:1px solid var(--line);color:var(--ink-soft);font-family:var(--sans);font-size:13px;padding:9px 16px;border-radius:8px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:7px}
+.pg-btn:hover:not(:disabled){background:#2a261d;color:var(--gold-bright);border-color:var(--gold-dim)}
+.pg-btn:disabled{opacity:.34;cursor:not-allowed}
+.lesson-count{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
+.lesson-jump{background:var(--bg-panel);border:1px solid var(--line);color:var(--gold);font-family:var(--sans);font-size:13px;padding:9px 12px;border-radius:8px;cursor:pointer}
+
+.lesson{animation:fade .45s ease}
+.lesson .l-eyebrow{font-size:11px;letter-spacing:.28em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.lesson .l-title{font-family:var(--serif);font-size:40px;font-weight:600;line-height:1.05;margin-top:10px}
+.lesson .l-sub{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ink-soft);margin-top:8px;max-width:720px}
+
+.lesson-body{display:grid;grid-template-columns:1.55fr 1fr;gap:34px;margin-top:30px;align-items:start}
+.diagram-box{
+  background:radial-gradient(ellipse at 30% 20%,#1a1812,#121009);
+  border:1px solid var(--line);border-radius:16px;padding:22px;position:relative;overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(201,169,110,.06),0 24px 50px -30px #000;
+}
+.diagram-box::before{content:"";position:absolute;inset:0;background-image:radial-gradient(var(--line-soft) 1px,transparent 1px);background-size:26px 26px;opacity:.4;pointer-events:none}
+.diagram-box svg{width:100%;height:auto;display:block;position:relative;z-index:1}
+.diagram-cap{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--gold-dim);text-align:center;margin-top:12px;position:relative;z-index:1}
+
+.lesson-aside{position:sticky;top:30px}
+.points-h{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.points-h::after{content:"";flex:1;height:1px;background:var(--line)}
+.points{list-style:none;display:flex;flex-direction:column;gap:15px}
+.points li{display:flex;gap:13px;font-size:14.5px;color:var(--ink);line-height:1.5}
+.points li .b{flex-shrink:0;width:25px;height:25px;border-radius:7px;background:rgba(201,169,110,.1);border:1px solid var(--gold-dim);color:var(--gold);font-family:var(--serif);font-weight:600;font-size:14px;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.points li b,.points li strong{color:var(--gold-bright);font-weight:600}
+.hook{margin-top:26px;background:linear-gradient(135deg,rgba(201,169,110,.1),rgba(201,169,110,.02));border:1px solid var(--gold-dim);border-radius:13px;padding:20px 22px;position:relative}
+.hook .hk-label{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:700;display:flex;align-items:center;gap:8px}
+.hook .hk-label svg{width:15px;height:15px}
+.hook p{font-family:var(--serif);font-size:18px;font-style:italic;color:var(--ink);margin-top:10px;line-height:1.4}
+.hook p b{color:var(--gold-bright);font-style:normal;font-weight:600}
+
+/* ---------- FLASHCARDS ---------- */
+.fc-controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.chip{background:var(--bg-panel);border:1px solid var(--line);color:var(--ink-soft);font-family:var(--sans);font-size:12.5px;padding:8px 15px;border-radius:22px;cursor:pointer;transition:all .2s;letter-spacing:.02em}
+.chip:hover{border-color:var(--gold-dim);color:var(--ink)}
+.chip.active{background:linear-gradient(135deg,var(--gold),var(--gold-dim));color:#1a1610;border-color:var(--gold);font-weight:600}
+.fc-actions{display:flex;gap:10px;margin-left:auto}
+.fc-act{background:none;border:1px solid var(--gold-dim);color:var(--gold);font-family:var(--sans);font-size:12.5px;padding:8px 16px;border-radius:8px;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:7px}
+.fc-act:hover{background:rgba(201,169,110,.12)}
+.fc-meta{font-size:12px;color:var(--ink-faint);letter-spacing:.1em;text-transform:uppercase;margin-bottom:22px}
+.fc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:18px}
+.flip{perspective:1400px;height:210px;cursor:pointer}
+.flip-in{position:relative;width:100%;height:100%;transition:transform .6s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d}
+.flip.flipped .flip-in{transform:rotateY(180deg)}
+.flip-face{position:absolute;inset:0;backface-visibility:hidden;border-radius:14px;padding:26px 24px;display:flex;flex-direction:column;border:1px solid var(--line)}
+.flip-front{background:var(--bg-card);justify-content:space-between}
+.flip-front .ftag{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold-dim);font-weight:600}
+.flip-front .fterm{font-family:var(--serif);font-size:25px;font-weight:600;color:var(--ink);line-height:1.15}
+.flip-front .fhint{font-size:11px;color:var(--ink-faint);letter-spacing:.1em;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.flip-back{background:linear-gradient(145deg,#231f17,#1a1711);transform:rotateY(180deg);justify-content:center;border-color:var(--gold-dim)}
+.flip-back .fdef{font-size:14.5px;color:var(--ink);line-height:1.55}
+.flip-back .fdef b{color:var(--gold-bright);font-weight:600}
+.flip-back .fcat{position:absolute;bottom:14px;right:18px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold-dim)}
+
+/* ---------- MCQ ---------- */
+.quiz-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;margin-bottom:8px}
+.score-pill{background:var(--bg-panel);border:1px solid var(--line);border-radius:30px;padding:10px 20px;display:flex;align-items:center;gap:12px}
+.score-pill .sc{font-family:var(--serif);font-size:24px;font-weight:600;color:var(--gold)}
+.score-pill .sl{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+.q{background:var(--bg-card);border:1px solid var(--line);border-radius:14px;padding:26px 28px;margin-bottom:18px;animation:fade .4s ease}
+.q .qnum{font-family:var(--serif);font-size:13px;color:var(--gold);font-weight:600;letter-spacing:.08em}
+.q .qtext{font-size:17px;color:var(--ink);margin-top:10px;line-height:1.5;font-weight:400}
+.opts{display:flex;flex-direction:column;gap:10px;margin-top:20px}
+.opt{display:flex;align-items:flex-start;gap:13px;background:var(--bg-soft);border:1px solid var(--line);border-radius:10px;padding:14px 16px;cursor:pointer;transition:all .18s;font-size:14.5px;color:var(--ink-soft);text-align:left;width:100%;font-family:var(--sans)}
+.opt .ol{flex-shrink:0;width:24px;height:24px;border-radius:6px;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-weight:600;font-size:13px;color:var(--ink-faint);transition:all .18s}
+.opt:hover:not(.locked){border-color:var(--gold-dim);color:var(--ink);background:#221e17}
+.opt:hover:not(.locked) .ol{border-color:var(--gold-dim);color:var(--gold)}
+.opt.correct{background:var(--green-bg);border-color:var(--green);color:#cfe3c6}
+.opt.correct .ol{background:var(--green);border-color:var(--green);color:#13200f}
+.opt.wrong{background:var(--red-bg);border-color:var(--red);color:#e6c3bb}
+.opt.wrong .ol{background:var(--red);border-color:var(--red);color:#241310}
+.opt.locked{cursor:default}
+.opt.dim{opacity:.5}
+.explain{margin-top:16px;border-radius:10px;padding:15px 18px;font-size:14px;line-height:1.55;display:none;animation:fade .35s ease}
+.explain.show{display:block}
+.explain.ok{background:var(--green-bg);border:1px solid var(--green)}
+.explain.no{background:var(--red-bg);border:1px solid var(--red)}
+.explain .et{font-size:11px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;margin-bottom:7px;display:flex;align-items:center;gap:8px}
+.explain.ok .et{color:var(--green)}
+.explain.no .et{color:var(--red)}
+.explain b{color:var(--gold-bright);font-weight:600}
+.quiz-reset{display:block;margin:30px auto 0;background:none;border:1px solid var(--gold-dim);color:var(--gold);font-family:var(--sans);font-size:13px;padding:11px 26px;border-radius:9px;cursor:pointer;transition:all .2s;letter-spacing:.04em}
+.quiz-reset:hover{background:rgba(201,169,110,.12)}
+
+/* ---------- responsive ---------- */
+.menu-btn{display:none}
+@media(max-width:920px){
+  .lesson-body{grid-template-columns:1fr}
+  .lesson-aside{position:static}
+  .wrap{padding:40px 26px 80px}
+}
+@media(max-width:760px){
+  .sidebar{position:fixed;left:0;top:0;transform:translateX(-100%);transition:transform .3s;box-shadow:30px 0 60px -20px #000}
+  .sidebar.open{transform:none}
+  .menu-btn{display:flex;position:fixed;top:16px;left:16px;z-index:60;width:46px;height:46px;border-radius:11px;background:var(--bg-panel);border:1px solid var(--line);color:var(--gold);align-items:center;justify-content:center;cursor:pointer}
+  .wrap{padding:64px 18px 70px}
+  .page-head h2{font-size:34px}
+  .lesson .l-title{font-size:30px}
+  .scrim{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:45}
+  .scrim.show{display:block}
+}
+</style>
+</head>
+<body>
+<button class="menu-btn" onclick="toggleNav()" aria-label="Menu">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
+<div class="scrim" id="scrim" onclick="toggleNav()"></div>
+<div class="app">
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="kicker">Theme 4 · Philosophy of Science</div>
+      <h1>Science:<br>Why, &amp; How?</h1>
+      <div class="sub">Bem &amp; Looren de Jong — Ch. 1</div>
+    </div>
+    <nav class="nav" id="nav">
+      <button data-view="overview" class="active"><span class="ix">I</span> Overview</button>
+      <button data-view="lessons"><span class="ix">II</span> Lessons</button>
+      <button data-view="flashcards"><span class="ix">III</span> Flashcards</button>
+      <button data-view="mcq"><span class="ix">IV</span> MCQ Practice</button>
+    </nav>
+    <div class="foot">
+      <p>15 lessons · 42 flashcards · 16 questions</p>
+      <div class="prog-wrap"><div class="prog" id="globalProg"></div></div>
+    </div>
+  </aside>
+  <main class="main">
+    <!-- OVERVIEW -->
+    <section class="view active" id="view-overview">
+      <div class="wrap">
+        <div class="page-head">
+          <div class="eyebrow">Module Overview</div>
+          <h2>The Architecture of Scientific Knowledge</h2>
+          <p class="lede">What counts as knowledge, how claims are justified, and what makes science different from common sense — drawn out as fifteen whiteboard lessons.</p>
+        </div>
+        <div class="ov-intro">
+          <h3>How to use this platform</h3>
+          <p>Each lesson is built around one large diagram — the way a professor would sketch the idea on a whiteboard. Read the diagram first, then the five points beside it, then lock in the memory hook. Move through the lessons in order, drill the flashcards, then test yourself in the MCQ section.</p>
+          <div class="meta">
+            <div><span class="n">3</span><span class="l">Epistemologies</span></div>
+            <div><span class="n">3</span><span class="l">Argument types</span></div>
+            <div><span class="n">5</span><span class="l">Cycle stages</span></div>
+            <div><span class="n">6</span><span class="l">Marks of science</span></div>
+          </div>
+        </div>
+        <div class="grid" id="ovGrid"></div>
+      </div>
+    </section>
+
+    <!-- LESSONS -->
+    <section class="view" id="view-lessons">
+      <div class="wrap">
+        <div class="lesson-bar">
+          <div class="lesson-count" id="lessonCount">Lesson 01 / 15</div>
+          <div class="lesson-pager">
+            <button class="pg-btn" id="prevBtn" onclick="lessonStep(-1)">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg> Prev
+            </button>
+            <button class="pg-btn" id="nextBtn" onclick="lessonStep(1)">
+              Next <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+        <hr class="divider">
+        <div id="lessonHost"></div>
+      </div>
+    </section>
+
+    <!-- FLASHCARDS -->
+    <section class="view" id="view-flashcards">
+      <div class="wrap">
+        <div class="page-head">
+          <div class="eyebrow">Active Recall</div>
+          <h2>Flashcards</h2>
+          <p class="lede">Tap any card to flip. Filter by topic, shuffle the deck, or reset to the original order.</p>
+        </div>
+        <div class="fc-controls" id="fcChips"></div>
+        <div class="fc-controls" style="margin-top:4px">
+          <div class="fc-actions" style="margin-left:0">
+            <button class="fc-act" onclick="shuffleCards()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 3h5v5"/><path d="M4 20L21 3"/><path d="M21 16v5h-5"/><path d="M15 15l6 6"/><path d="M4 4l5 5"/></svg> Shuffle
+            </button>
+            <button class="fc-act" onclick="resetCards()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 109-9 9 9 0 00-6.4 2.6L3 8"/><path d="M3 3v5h5"/></svg> Reset
+            </button>
+          </div>
+        </div>
+        <div class="fc-meta" id="fcMeta"></div>
+        <div class="fc-grid" id="fcGrid"></div>
+      </div>
+    </section>
+
+    <!-- MCQ -->
+    <section class="view" id="view-mcq">
+      <div class="wrap">
+        <div class="quiz-head">
+          <div class="page-head" style="margin-bottom:0">
+            <div class="eyebrow">Exam Practice</div>
+            <h2>Multiple Choice</h2>
+          </div>
+          <div class="score-pill"><span class="sc" id="scoreVal">0 / 16</span><span class="sl">Answered <span id="answeredVal">0</span></span></div>
+        </div>
+        <hr class="divider">
+        <div id="quizHost"></div>
+        <button class="quiz-reset" onclick="resetQuiz()">Reset all answers</button>
+      </div>
+    </section>
+
+  </main>
+</div>
+<script>
+/* ============ LESSON DATA — part A (1–8) ============ */
+const LESSONS = [
+{
+  num:"01", tag:"Introduction", title:"Why Science?",
+  sub:"Demarcation, unification, and the critical attitude.",
+  desc:"Why science is trusted, what sets it apart, and the open debate over its limits.",
+  svg:`<svg viewBox="0 0 660 440" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="330" y="34" text-anchor="middle" font-family="Cormorant Garamond" font-size="26" font-weight="600" fill="#e3c89a">What makes science special?</text>
+    <line x1="120" y1="52" x2="540" y2="52" stroke="#3a3528"/>
+    <!-- Pillar 1: Demarcation -->
+    <g>
+      <text x="110" y="86" text-anchor="middle" font-size="13" fill="#c9a96e" font-weight="600" letter-spacing="1">DEMARCATION</text>
+      <rect x="30" y="104" width="76" height="150" rx="8" fill="#1c2a18" stroke="#7ea872"/>
+      <text x="68" y="140" text-anchor="middle" font-size="12" fill="#cfe3c6">Science</text>
+      <text x="68" y="160" text-anchor="middle" font-size="10" fill="#7d7563">logic · tests</text>
+      <text x="68" y="176" text-anchor="middle" font-size="10" fill="#7d7563">evidence</text>
+      <rect x="114" y="104" width="76" height="150" rx="8" fill="#2a1a16" stroke="#c47b6e"/>
+      <text x="152" y="140" text-anchor="middle" font-size="12" fill="#e6c3bb">Pseudo-</text>
+      <text x="152" y="156" text-anchor="middle" font-size="12" fill="#e6c3bb">science</text>
+      <line x1="110" y1="100" x2="110" y2="258" stroke="#c9a96e" stroke-width="2" stroke-dasharray="5 5"/>
+      <text x="110" y="284" text-anchor="middle" font-size="11" fill="#b4ab97" font-style="italic">The line is real…</text>
+      <text x="110" y="300" text-anchor="middle" font-size="11" fill="#8a7448" font-style="italic">…but hard to draw</text>
+    </g>
+    <!-- Pillar 2: Unification -->
+    <g>
+      <text x="330" y="86" text-anchor="middle" font-size="13" fill="#c9a96e" font-weight="600" letter-spacing="1">UNIFICATION</text>
+      <circle cx="270" cy="118" r="9" fill="#211e17" stroke="#7b9bb0"/>
+      <circle cx="330" cy="110" r="9" fill="#211e17" stroke="#7b9bb0"/>
+      <circle cx="392" cy="120" r="9" fill="#211e17" stroke="#7b9bb0"/>
+      <circle cx="288" cy="150" r="9" fill="#211e17" stroke="#7b9bb0"/>
+      <circle cx="372" cy="152" r="9" fill="#211e17" stroke="#7b9bb0"/>
+      <text x="330" y="138" text-anchor="middle" font-size="9" fill="#7d7563">scattered facts</text>
+      <line x1="270" y1="128" x2="330" y2="205" stroke="#8a7448" stroke-width="1"/>
+      <line x1="330" y1="120" x2="330" y2="205" stroke="#8a7448" stroke-width="1"/>
+      <line x1="392" y1="130" x2="330" y2="205" stroke="#8a7448" stroke-width="1"/>
+      <line x1="288" y1="160" x2="330" y2="205" stroke="#8a7448" stroke-width="1"/>
+      <line x1="372" y1="162" x2="330" y2="205" stroke="#8a7448" stroke-width="1"/>
+      <circle cx="330" cy="228" r="26" fill="rgba(201,169,110,.14)" stroke="#c9a96e" stroke-width="1.5"/>
+      <text x="330" y="225" text-anchor="middle" font-size="11" fill="#e3c89a" font-weight="600">underlying</text>
+      <text x="330" y="239" text-anchor="middle" font-size="11" fill="#e3c89a" font-weight="600">cause</text>
+      <text x="330" y="284" text-anchor="middle" font-size="11" fill="#b4ab97" font-style="italic">Many effects, one</text>
+      <text x="330" y="300" text-anchor="middle" font-size="11" fill="#8a7448" font-style="italic">hidden structure</text>
+    </g>
+    <!-- Pillar 3: Criticism -->
+    <g>
+      <text x="552" y="86" text-anchor="middle" font-size="13" fill="#c9a96e" font-weight="600" letter-spacing="1">CRITICISM</text>
+      <ellipse cx="552" cy="160" rx="62" ry="40" fill="none" stroke="#c08a9a" stroke-width="1.5"/>
+      <circle cx="552" cy="160" r="20" fill="rgba(192,138,154,.15)" stroke="#c08a9a"/>
+      <circle cx="552" cy="160" r="8" fill="#c08a9a"/>
+      <text x="552" y="222" text-anchor="middle" font-size="10" fill="#7d7563">open mind</text>
+      <text x="552" y="238" text-anchor="middle" font-size="10" fill="#7d7563">reject dogma</text>
+      <text x="552" y="284" text-anchor="middle" font-size="11" fill="#b4ab97" font-style="italic">Always revisable,</text>
+      <text x="552" y="300" text-anchor="middle" font-size="11" fill="#8a7448" font-style="italic">never final</text>
+    </g>
+    <line x1="120" y1="330" x2="540" y2="330" stroke="#3a3528"/>
+    <text x="330" y="360" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="17" fill="#ece6d8">Epistemology = the branch of philosophy that</text>
+    <text x="330" y="384" text-anchor="middle" font-family="Cormorant Garamond" font-style="italic" font-size="17" fill="#ece6d8">evaluates how knowledge claims are justified.</text>
+  </svg>`,
+  points:[
+    "In modern society science is held in <b>high regard</b> — lab tests, statistics and logic are treated as near-guarantees of truth.",
+    "The <b>demarcation problem</b>: philosophers still cannot define a watertight boundary between science and pseudo-science.",
+    "Science <b>unifies</b> — it explains many disconnected phenomena as effects of one underlying causal structure (e.g. the periodic table).",
+    "Unification brings <b>reduction</b>: the unsettling idea that everyday things are 'really nothing but' atoms, or thoughts 'nothing but' neurons.",
+    "Science is tied to a <b>critical attitude</b> — open-mindedness and rejection of authority — though critics (Marxists, feminists, postmodernists) call its objectivity self-congratulation."
+  ],
+  hook:"Trusted · Unifying · Self-correcting — but its <b>border is fuzzy</b>. Science is prized precisely for the three things its critics attack."
+},
+{
+  num:"02", tag:"Epistemology", title:"Realism · Idealism · Pragmatism",
+  sub:"Three answers to: what is knowledge, and what makes it true?",
+  desc:"The central trio of positions on the origin and justification of knowledge.",
+  svg:`<svg viewBox="0 0 680 430" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="340" y="30" text-anchor="middle" font-family="Cormorant Garamond" font-size="24" font-weight="600" fill="#e3c89a">Knowledge = justified true belief</text>
+    <text x="340" y="50" text-anchor="middle" font-size="12" fill="#7d7563" font-style="italic">…but what justifies it, and what is "true"?</text>
+    <!-- REALISM -->
+    <g>
+      <rect x="24" y="74" width="196" height="300" rx="12" fill="#1c2a18" stroke="#7ea872" stroke-width="1.3"/>
+      <text x="122" y="104" text-anchor="middle" font-family="Cormorant Garamond" font-size="22" font-weight="600" fill="#cfe3c6">Realism</text>
+      <text x="122" y="124" text-anchor="middle" font-size="11" fill="#7ea872">focus: the KNOWN</text>
+      <circle cx="70" cy="180" r="22" fill="none" stroke="#ece6d8" stroke-width="1.5"/>
+      <text x="70" y="184" text-anchor="middle" font-size="10" fill="#ece6d8">world</text>
+      <circle cx="174" cy="180" r="22" fill="none" stroke="#b4ab97" stroke-width="1.5"/>
+      <text x="174" y="184" text-anchor="middle" font-size="10" fill="#b4ab97">mind</text>
+      <line x1="92" y1="180" x2="152" y2="180" stroke="#7ea872" stroke-width="1.5" marker-end="url(#ag)"/>
+      <text x="122" y="172" text-anchor="middle" font-size="9" fill="#7ea872">mirrors</text>
+      <text x="122" y="238" text-anchor="middle" font-size="12" fill="#ece6d8">Mind pictures the</text>
+      <text x="122" y="254" text-anchor="middle" font-size="12" fill="#ece6d8">objective world</text>
+      <line x1="44" y1="286" x2="200" y2="286" stroke="#3a3528"/>
+      <text x="122" y="312" text-anchor="middle" font-size="11" fill="#7ea872" font-weight="600">TRUTH =</text>
+      <text x="122" y="332" text-anchor="middle" font-family="Cormorant Garamond" font-size="19" font-style="italic" fill="#cfe3c6">correspondence</text>
+      <text x="122" y="356" text-anchor="middle" font-size="10" fill="#7d7563">does it match reality?</text>
+    </g>
+    <!-- IDEALISM -->
+    <g>
+      <rect x="242" y="74" width="196" height="300" rx="12" fill="#2a1a16" stroke="#c47b6e" stroke-width="1.3"/>
+      <text x="340" y="104" text-anchor="middle" font-family="Cormorant Garamond" font-size="22" font-weight="600" fill="#e6c3bb">Idealism</text>
+      <text x="340" y="124" text-anchor="middle" font-size="11" fill="#c47b6e">focus: the KNOWER</text>
+      <circle cx="288" cy="180" r="22" fill="none" stroke="#b4ab97" stroke-width="1.5"/>
+      <text x="288" y="184" text-anchor="middle" font-size="10" fill="#b4ab97">mind</text>
+      <circle cx="392" cy="180" r="22" fill="none" stroke="#ece6d8" stroke-width="1.5" stroke-dasharray="3 3"/>
+      <text x="392" y="184" text-anchor="middle" font-size="9" fill="#7d7563">"world"</text>
+      <line x1="310" y1="180" x2="370" y2="180" stroke="#c47b6e" stroke-width="1.5" marker-end="url(#ar)"/>
+      <text x="340" y="172" text-anchor="middle" font-size="9" fill="#c47b6e">creates</text>
+      <text x="340" y="238" text-anchor="middle" font-size="12" fill="#ece6d8">World is a subjective</text>
+      <text x="340" y="254" text-anchor="middle" font-size="12" fill="#ece6d8">(or social) construction</text>
+      <line x1="262" y1="286" x2="418" y2="286" stroke="#3a3528"/>
+      <text x="340" y="312" text-anchor="middle" font-size="11" fill="#c47b6e" font-weight="600">TRUTH =</text>
+      <text x="340" y="332" text-anchor="middle" font-family="Cormorant Garamond" font-size="19" font-style="italic" fill="#e6c3bb">coherence</text>
+      <text x="340" y="356" text-anchor="middle" font-size="10" fill="#7d7563">fits the rest we believe?</text>
+    </g>
+    <!-- PRAGMATISM -->
+    <g>
+      <rect x="460" y="74" width="196" height="300" rx="12" fill="rgba(201,169,110,.1)" stroke="#c9a96e" stroke-width="1.6"/>
+      <text x="558" y="104" text-anchor="middle" font-family="Cormorant Garamond" font-size="22" font-weight="600" fill="#e3c89a">Pragmatism</text>
+      <text x="558" y="124" text-anchor="middle" font-size="11" fill="#c9a96e">the middle road</text>
+      <circle cx="506" cy="180" r="22" fill="none" stroke="#ece6d8" stroke-width="1.5"/>
+      <text x="506" y="184" text-anchor="middle" font-size="10" fill="#ece6d8">mind</text>
+      <circle cx="610" cy="180" r="22" fill="none" stroke="#ece6d8" stroke-width="1.5"/>
+      <text x="610" y="184" text-anchor="middle" font-size="10" fill="#ece6d8">world</text>
+      <line x1="528" y1="174" x2="588" y2="174" stroke="#c9a96e" stroke-width="1.5" marker-end="url(#ag2)"/>
+      <line x1="588" y1="188" x2="528" y2="188" stroke="#c9a96e" stroke-width="1.5" marker-end="url(#ag3)"/>
+      <text x="558" y="160" text-anchor="middle" font-size="9" fill="#c9a96e">interact</text>
+      <text x="558" y="238" text-anchor="middle" font-size="12" fill="#ece6d8">Knowledge is coping</text>
+      <text x="558" y="254" text-anchor="middle" font-size="12" fill="#ece6d8">by acting on the world</text>
+      <line x1="480" y1="286" x2="636" y2="286" stroke="#3a3528"/>
+      <text x="558" y="312" text-anchor="middle" font-size="11" fill="#c9a96e" font-weight="600">TRUTH =</text>
+      <text x="558" y="332" text-anchor="middle" font-family="Cormorant Garamond" font-size="19" font-style="italic" fill="#e3c89a">success</text>
+      <text x="558" y="356" text-anchor="middle" font-size="10" fill="#7d7563">does it work in practice?</text>
+    </g>
+    <defs>
+      <marker id="ag" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#7ea872"/></marker>
+      <marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#c47b6e"/></marker>
+      <marker id="ag2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#c9a96e"/></marker>
+      <marker id="ag3" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#c9a96e"/></marker>
+    </defs>
+  </svg>`,
+  points:[
+    "Knowledge is classically <b>justified true belief</b>. The two grounds for justification are the <b>knower</b> (idealism) or the <b>known</b> (realism).",
+    "<b>Realism</b>: our terms refer to real things; the mind mirrors the world. Truth is <b>correspondence</b> with reality.",
+    "<b>Idealism</b>: the world as we know it is a creation of the mind, a subjective construction. Truth is <b>coherence</b> with the rest of our knowledge.",
+    "Idealism slides toward <b>relativism / social constructionism</b>: if knowledge is constructed, every group may have its own truth.",
+    "<b>Pragmatism</b> (the authors' view): knowledge is an active <b>interaction</b> of subject and object — coping with the world, not mirroring it. Truth is <b>success</b>."
+  ],
+  hook:"<b>R–I–P.</b> Realism mirrors (correspondence), Idealism makes (coherence), Pragmatism copes (success). Pragmatism keeps both the objective and the subjective pole."
+},
+{
+  num:"03", tag:"Epistemology", title:"The Objectivity Dilemma",
+  sub:"Why a 'God's-eye view' of reality is impossible.",
+  desc:"Two unattractive options — and why you can never step outside theory.",
+  svg:`<svg viewBox="0 0 660 430" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="330" y="32" text-anchor="middle" font-family="Cormorant Garamond" font-size="24" font-weight="600" fill="#e3c89a">Two unattractive options</text>
+    <rect x="40" y="56" width="250" height="90" rx="10" fill="#2a1a16" stroke="#c47b6e"/>
+    <text x="165" y="84" text-anchor="middle" font-size="14" fill="#e6c3bb" font-weight="600">IDEALISM</text>
+    <text x="165" y="106" text-anchor="middle" font-size="11" fill="#b4ab97">The mind makes up — or</text>
+    <text x="165" y="122" text-anchor="middle" font-size="11" fill="#b4ab97">entirely confabulates — the world.</text>
+    <rect x="370" y="56" width="250" height="90" rx="10" fill="#1c2a18" stroke="#7ea872"/>
+    <text x="495" y="84" text-anchor="middle" font-size="14" fill="#cfe3c6" font-weight="600">REALISM</text>
+    <text x="495" y="106" text-anchor="middle" font-size="11" fill="#b4ab97">The world "in itself" is directly</text>
+    <text x="495" y="122" text-anchor="middle" font-size="11" fill="#b4ab97">accessible — a God's-eye view.</text>
+    <!-- The loop -->
+    <text x="330" y="186" text-anchor="middle" font-size="13" fill="#c9a96e" font-weight="600">The paradox of comparison</text>
+    <rect x="150" y="206" width="150" height="56" rx="9" fill="#211e17" stroke="#b4ab97"/>
+    <text x="225" y="232" text-anchor="middle" font-size="13" fill="#ece6d8">Our THEORY</text>
+    <text x="225" y="250" text-anchor="middle" font-size="10" fill="#7d7563">(language)</text>
+    <rect x="360" y="206" width="150" height="56" rx="9" fill="#211e17" stroke="#ece6d8"/>
+    <text x="435" y="232" text-anchor="middle" font-size="13" fill="#ece6d8">The WORLD</text>
+    <text x="435" y="250" text-anchor="middle" font-size="10" fill="#7d7563">(reality)</text>
+    <line x1="300" y1="234" x2="356" y2="234" stroke="#c9a96e" stroke-width="1.5" stroke-dasharray="4 4"/>
+    <text x="330" y="226" text-anchor="middle" font-size="10" fill="#c9a96e">match?</text>
+    <path d="M225 262 C 225 320, 435 320, 435 262" fill="none" stroke="#c47b6e" stroke-width="1.5" marker-end="url(#ad)"/>
+    <text x="330" y="312" text-anchor="middle" font-size="11" fill="#e6c3bb" font-style="italic">…but any "check" must itself be stated</text>
+    <text x="330" y="328" text-anchor="middle" font-size="11" fill="#e6c3bb" font-style="italic">as a theory. You can't get outside.</text>
+    <rect x="120" y="356" width="420" height="54" rx="10" fill="rgba(201,169,110,.1)" stroke="#c9a96e"/>
+    <text x="330" y="380" text-anchor="middle" font-family="Cormorant Garamond" font-size="16" fill="#e3c89a" font-style="italic">Convergent realism — "success proves truth" —</text>
+    <text x="330" y="400" text-anchor="middle" font-family="Cormorant Garamond" font-size="16" fill="#e3c89a" font-style="italic">fails: false theories can predict well too.</text>
+    <defs><marker id="ad" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#c47b6e"/></marker></defs>
+  </svg>`,
+  points:[
+    "We seem stuck with two bad options: <b>idealism</b> (the mind invents the world) or <b>realism</b> (the world-in-itself is directly accessible).",
+    "Realism needs a <b>'God's-eye point of view'</b> (Putnam) — matching our picture against nature's own. That is paradoxical.",
+    "Any test of 'does theory match world?' must itself be <b>stated as a theory</b> — there is no way to step outside theory and compare directly.",
+    "<b>Convergent realism</b> (Boyd): if theories keep succeeding and converging, their terms must be real. But Laudan notes <b>false theories can predict successfully</b>.",
+    "So literal realism is impossible — yet <b>success still matters</b>, which is exactly what pragmatism emphasises."
+  ],
+  hook:"You can never <b>step outside theory</b> to photograph reality bare. Every comparison is itself a theory — that is the objectivity trap."
+},
+{
+  num:"04", tag:"Common Sense vs Science", title:"Manifest & Scientific Image",
+  sub:"Sellars: two pictures of the human-in-the-world.",
+  desc:"The world of persons and colours vs the world of particles and forces.",
+  svg:`<svg viewBox="0 0 660 440" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="330" y="30" text-anchor="middle" font-family="Cormorant Garamond" font-size="24" font-weight="600" fill="#e3c89a">Sellars: two "images" of the world</text>
+    <!-- two overlapping lenses -->
+    <circle cx="250" cy="160" r="105" fill="rgba(123,155,176,.12)" stroke="#7b9bb0" stroke-width="1.5"/>
+    <circle cx="410" cy="160" r="105" fill="rgba(192,138,154,.12)" stroke="#c08a9a" stroke-width="1.5"/>
+    <text x="190" y="92" text-anchor="middle" font-size="14" fill="#7b9bb0" font-weight="600">MANIFEST</text>
+    <text x="190" y="124" text-anchor="middle" font-size="11" fill="#ece6d8">tables, persons</text>
+    <text x="190" y="142" text-anchor="middle" font-size="11" fill="#ece6d8">colours, feelings</text>
+    <text x="190" y="160" text-anchor="middle" font-size="11" fill="#ece6d8">water</text>
+    <text x="190" y="200" text-anchor="middle" font-size="10" fill="#7d7563">common sense</text>
+    <text x="470" y="92" text-anchor="middle" font-size="14" fill="#c08a9a" font-weight="600">SCIENTIFIC</text>
+    <text x="470" y="124" text-anchor="middle" font-size="11" fill="#ece6d8">particles, forces</text>
+    <text x="470" y="142" text-anchor="middle" font-size="11" fill="#ece6d8">neurons, H₂O</text>
+    <text x="470" y="160" text-anchor="middle" font-size="11" fill="#ece6d8">fields</text>
+    <text x="470" y="200" text-anchor="middle" font-size="10" fill="#7d7563">postulated entities</text>
+    <text x="330" y="150" text-anchor="middle" font-size="11" fill="#c9a96e" font-weight="600">stereo-</text>
+    <text x="330" y="166" text-anchor="middle" font-size="11" fill="#c9a96e" font-weight="600">scopic</text>
+    <text x="330" y="182" text-anchor="middle" font-size="11" fill="#c9a96e" font-weight="600">vision</text>
+    <!-- four options -->
+    <text x="330" y="302" text-anchor="middle" font-size="12" fill="#c9a96e" font-weight="600" letter-spacing="1">FOUR WAYS TO RELATE THEM</text>
+    <g font-size="11.5" fill="#b4ab97">
+      <text x="50" y="330">① Identical — <tspan fill="#c47b6e">wrong</tspan> (molecules aren't "wet")</text>
+      <text x="50" y="352">② Manifest is real, scientific = mere shorthand</text>
+      <text x="50" y="374">③ Scientific is real, manifest = mere appearance</text>
+      <text x="50" y="396" fill="#e3c89a">④ <tspan font-weight="600">Both real</tspan> — Sellars' "stereoscopic" union</text>
+    </g>
+  </svg>`,
+  points:[
+    "Sellars contrasts the <b>manifest image</b> (the world of persons, tables and colours of common sense) with the <b>scientific image</b> (particles and forces).",
+    "The two often <b>conflict</b>: science says water is 'really' H₂O, the common-sense table an illusion, a person 'really' neurophysiological processes.",
+    "Four responses: (1) they're identical — wrong; (2) only the manifest is real; (3) only the scientific is real; (4) Sellars: <b>both are real</b>.",
+    "Sellars' <b>stereoscopic vision</b> unites both — science is unfinished and can re-create common-sense concepts in its own terms (e.g. Dennett on consciousness).",
+    "The book's view: science and common sense form a <b>continuum</b> — scientific method is a regimented outgrowth of human practice ('organised common sense')."
+  ],
+  hook:"Two lenses, one scene. The <b>manifest</b> image (persons & tables) and the <b>scientific</b> image (atoms & neurons) — fuse them into stereoscopic sight."
+},
+{
+  num:"05", tag:"Common Sense vs Science", title:"Six Marks of Science",
+  sub:"What makes scientific knowledge a matter of degree, not kind.",
+  desc:"Nagel's six characteristics — and the science–common-sense continuum.",
+  svg:`<svg viewBox="0 0 660 450" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="330" y="30" text-anchor="middle" font-family="Cormorant Garamond" font-size="24" font-weight="600" fill="#e3c89a">Six characteristics (Nagel)</text>
+    <!-- hexagon of 6 -->
+    <g>
+      <g><rect x="248" y="58" width="164" height="50" rx="9" fill="#211e17" stroke="#c9a96e"/><text x="330" y="80" text-anchor="middle" font-size="13" fill="#e3c89a" font-weight="600">1 · Systematicity</text><text x="330" y="98" text-anchor="middle" font-size="9.5" fill="#7d7563">laws apply across the board</text></g>
+      <g><rect x="448" y="120" width="180" height="50" rx="9" fill="#211e17" stroke="#7b9bb0"/><text x="538" y="142" text-anchor="middle" font-size="13" fill="#9bbcd0" font-weight="600">2 · Defined methods</text><text x="538" y="160" text-anchor="middle" font-size="9.5" fill="#7d7563">fix legitimate subject matter</text></g>
+      <g><rect x="448" y="220" width="180" height="50" rx="9" fill="rgba(201,169,110,.12)" stroke="#c9a96e" stroke-width="1.6"/><text x="538" y="242" text-anchor="middle" font-size="13" fill="#e3c89a" font-weight="600">3 · Reduction ★</text><text x="538" y="260" text-anchor="middle" font-size="9.5" fill="#8a7448">the most distinctive mark</text></g>
+      <g><rect x="248" y="282" width="164" height="50" rx="9" fill="#211e17" stroke="#7ea872"/><text x="330" y="304" text-anchor="middle" font-size="13" fill="#9cc090" font-weight="600">4 · Objectivity</text><text x="330" y="322" text-anchor="middle" font-size="9.5" fill="#7d7563">intersubjective, replicable</text></g>
+      <g><rect x="32" y="220" width="180" height="50" rx="9" fill="#211e17" stroke="#c08a9a"/><text x="122" y="242" text-anchor="middle" font-size="13" fill="#d4a4b2" font-weight="600">5 · Clarity</text><text x="122" y="260" text-anchor="middle" font-size="9.5" fill="#7d7563">unambiguous, public</text></g>
+      <g><rect x="32" y="120" width="180" height="50" rx="9" fill="#211e17" stroke="#b4ab97"/><text x="122" y="142" text-anchor="middle" font-size="13" fill="#cfc6b3" font-weight="600">6 · Revisable</text><text x="122" y="160" text-anchor="middle" font-size="9.5" fill="#7d7563">open, never definitive</text></g>
+    </g>
+    <!-- continuum bar -->
+    <text x="330" y="372" text-anchor="middle" font-size="11" fill="#c9a96e" font-weight="600" letter-spacing="1">A CONTINUUM, NOT A WALL</text>
+    <rect x="80" y="388" width="500" height="16" rx="8" fill="url(#grad5)"/>
+    <text x="92" y="400" font-size="11" fill="#0f0e0c" font-weight="600">common sense</text>
+    <text x="568" y="400" font-size="11" fill="#0f0e0c" font-weight="600" text-anchor="end">science</text>
+    <text x="330" y="426" text-anchor="middle" font-size="11" fill="#b4ab97" font-style="italic">just more systematic, general, methodical &amp; open</text>
+    <defs><linearGradient id="grad5" x1="0" x2="1"><stop offset="0" stop-color="#7d7563"/><stop offset="1" stop-color="#c9a96e"/></linearGradient></defs>
+  </svg>`,
+  points:[
+    "<b>Systematicity</b>: theories must apply across the board, be coherent/hierarchical, with no ad-hoc exceptions.",
+    "<b>Well-defined methods</b> (Kuhn) fix what counts as legitimate subject matter — chemists disown the philosopher's stone; psychologists ignore poltergeists.",
+    "<b>Reduction</b> is the <b>most distinctive mark</b>: ignoring accidental detail and reducing phenomena to underlying principles (water/ice/steam = one substance).",
+    "<b>Objectivity</b> = controllable, reliable, intersubjectively observable; <b>Clarity</b> = unambiguous, public; <b>Revisable</b> = open and never definitive.",
+    "The science–common-sense difference is one of <b>degree, not principle</b> — science is just more systematic, general and explicit. 'Science is organised common sense.'"
+  ],
+  hook:"<b>S-M-R-O-C-R</b>: Systematic, Methodical, Reductive, Objective, Clear, Revisable. <b>Reduction</b> is the crown — the hunt for hidden springs behind appearances."
+},
+{
+  num:"06", tag:"Arguments", title:"Deduction",
+  sub:"Conclusions already contained in the premises.",
+  desc:"Valid form vs true content — the appeal and the limit of certainty.",
+  svg:`<svg viewBox="0 0 660 440" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="330" y="30" text-anchor="middle" font-family="Cormorant Garamond" font-size="24" font-weight="600" fill="#e3c89a">The conclusion is already inside</text>
+    <!-- nested containment -->
+    <ellipse cx="180" cy="170" rx="135" ry="105" fill="none" stroke="#7b9bb0" stroke-width="1.4"/>
+    <text x="180" y="84" text-anchor="middle" font-size="11" fill="#7b9bb0">PREMISES</text>
+    <ellipse cx="180" cy="180" rx="78" ry="58" fill="rgba(201,169,110,.12)" stroke="#c9a96e" stroke-width="1.5"/>
+    <text x="180" y="176" text-anchor="middle" font-size="12" fill="#e3c89a" font-weight="600">conclusion</text>
+    <text x="180" y="194" text-anchor="middle" font-size="9.5" fill="#8a7448">extracted, not added</text>
+    <!-- syllogism -->
+    <g font-size="12.5">
+      <text x="350" y="92" fill="#b4ab97">All humans are mortal</text>
+      <text x="350" y="116" fill="#b4ab97">Socrates is human</text>
+      <line x1="350" y1="128" x2="600" y2="128" stroke="#c9a96e"/>
+      <text x="350" y="150" fill="#e3c89a" font-weight="600">∴ Socrates is mortal</text>
+    </g>
+    <text x="350" y="182" font-size="10.5" fill="#7d7563" font-style="italic">Accept the premises → you</text>
+    <text x="350" y="198" font-size="10.5" fill="#7d7563" font-style="italic">must accept the conclusion.</text>
+    <!-- 2x2 validity vs truth -->
+    <text x="330" y="244" text-anchor="middle" font-size="12" fill="#c9a96e" font-weight="600">Two conditions for a true conclusion</text>
+    <g>
+      <rect x="150" y="262" width="180" height="62" rx="9" fill="#1c2a18" stroke="#7ea872"/>
+      <text x="240" y="288" text-anchor="middle" font-size="13" fill="#cfe3c6" font-weight="600">① VALID form</text>
+      <text x="240" y="308" text-anchor="middle" font-size="10" fill="#9cc090">arrangement is sound</text>
+      <rect x="350" y="262" width="180" height="62" rx="9" fill="#1c2a18" stroke="#7ea872"/>
+      <text x="440" y="288" text-anchor="middle" font-size="13" fill="#cfe3c6" font-weight="600">② TRUE premises</text>
+      <text x="440" y="308" text-anchor="middle" font-size="10" fill="#9cc090">content is correct</text>
+    </g>
+    <rect x="100" y="346" width="460" height="64" rx="10" fill="#2a1a16" stroke="#c47b6e"/>
+    <text x="330" y="372" text-anchor="middle" font-size="12" fill="#e6c3bb" font-weight="600">"All politicians are liars…" → valid but FALSE</text>
+    <text x="330" y="394" text-anchor="middle" font-size="11" fill="#b4ab97" font-style="italic">A perfectly valid argument can still be wrong if a premise is false.</text>
+  </svg>`,
+  points:[
+    "In a <b>deductive</b> argument the premises 'contain' the conclusion — you extract it, you don't add anything new.",
+    "Accept the premises and you <b>must</b> accept the conclusion, or you contradict yourself. <b>Validity</b> depends on form, not content.",
+    "A conclusion is true only if <b>both</b> conditions hold: (1) the argument is valid, and (2) the premises are true.",
+    "Deduction's appeal is <b>absolute certainty</b> — Euclid's geometry, Descartes' dream of deducing all science from innate axioms, Hull's deductive psychology.",
+    "But <b>Hull's system failed</b>: knowledge can't be forced into one fixed, comprehensive deductive system. Science is fallible and never closed."
+  ],
+  hook:"Deduction gives <b>certainty but no new facts</b>. Valid ≠ true: 'All politicians are liars' is perfectly valid and perfectly false."
+},
+{
+  num:"07", tag:"Arguments", title:"Induction & Its Problem",
+  sub:"From observed cases to general law — and Hume's challenge.",
+  desc:"Generalising beyond the evidence, and why it can't be logically justified.",
+  svg:`<svg viewBox="0 0 660 450" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="330" y="30" text-anchor="middle" font-family="Cormorant Garamond" font-size="24" font-weight="600" fill="#e3c89a">From the few to the all</text>
+    <!-- rising arrow -->
+    <g>
+      <circle cx="80" cy="250" r="13" fill="#211e17" stroke="#ece6d8"/><text x="80" y="254" text-anchor="middle" font-size="9" fill="#ece6d8">🦢</text>
+      <circle cx="120" cy="220" r="13" fill="#211e17" stroke="#ece6d8"/>
+      <circle cx="160" cy="235" r="13" fill="#211e17" stroke="#ece6d8"/>
+      <circle cx="200" cy="210" r="13" fill="#211e17" stroke="#ece6d8"/>
+      <circle cx="240" cy="225" r="13" fill="#211e17" stroke="#ece6d8"/>
+      <text x="160" y="285" text-anchor="middle" font-size="11" fill="#7d7563">observed swans — all white</text>
+      <path d="M270 215 Q 360 150 440 120" fill="none" stroke="#c9a96e" stroke-width="2" marker-end="url(#ai)"/>
+      <text x="360" y="155" text-anchor="middle" font-size="10" fill="#c9a96e" font-style="italic">leap</text>
+      <rect x="440" y="96" width="180" height="54" rx="9" fill="rgba(201,169,110,.12)" stroke="#c9a96e"/>
+      <text x="530" y="120" text-anchor="middle" font-size="12" fill="#e3c89a" font-weight="600">"ALL swans</text>
+      <text x="530" y="138" text-anchor="middle" font-size="12" fill="#e3c89a" font-weight="600">are white"</text>
+    </g>
+    <!-- support by degrees -->
+    <text x="455" y="186" text-anchor="middle" font-size="10.5" fill="#7d7563">support grows by degrees →</text>
+    <rect x="370" y="196" width="250" height="12" rx="6" fill="url(#gradi)"/>
+    <text x="375" y="226" font-size="9.5" fill="#7d7563">5 cases</text>
+    <text x="615" y="226" font-size="9.5" fill="#7d7563" text-anchor="end">1000 cases</text>
+    <!-- problem of induction -->
+    <rect x="40" y="306" width="580" height="124" rx="11" fill="#2a1a16" stroke="#c47b6e"/>
+    <text x="330" y="332" text-anchor="middle" font-size="13" fill="#e6c3bb" font-weight="600">Hume's problem of induction</text>
+    <text x="60" y="360" font-size="11.5" fill="#b4ab97">• The conclusion always <tspan fill="#e6c3bb">goes beyond the evidence</tspan> — never certain.</text>
+    <text x="60" y="384" font-size="11.5" fill="#b4ab97">• "Nature is uniform" is itself an <tspan fill="#e6c3bb">inductive claim</tspan> → circular.</text>
+    <text x="60" y="408" font-size="11.5" fill="#b4ab97">• We infer by <tspan fill="#e6c3bb">habit</tspan>, a psychological step — not by logic.</text>
+    <defs>
+      <marker id="ai" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#c9a96e"/></marker>
+      <linearGradient id="gradi" x1="0" x2="1"><stop offset="0" stop-color="#7d7563"/><stop offset="1" stop-color="#c9a96e"/></linearGradient>
+    </defs>
+  </svg>`,
+  points:[
+    "<b>Induction</b> generalises from cases of lesser scope: what's true of many members of a class is <b>likely</b> true of all (lots of white swans → all swans white).",
+    "Inductive support comes <b>by degrees</b> — more evidence and a larger sample give stronger (never conclusive) support. Statistical arguments quantify this.",
+    "The conclusion <b>always exceeds the evidence</b>, so it gives new knowledge — but never the certainty of deduction.",
+    "<b>Hume's problem</b>: induction can't be logically justified. 'Nature is uniform' is itself inductive, so any defence is <b>circular</b>; we infer by <b>habit</b>.",
+    "The <b>Raven paradox</b> shows the logic breaks: a white sneaker (a non-black non-raven) would 'confirm' that all ravens are black — absurd, but logically equivalent."
+  ],
+  hook:"Induction = <b>new knowledge, no certainty</b>. Hume: we believe the sun will rise from <b>habit</b>, not proof. The conclusion always outruns the data."
+},
+{
+  num:"08", tag:"Arguments", title:"Abduction",
+  sub:"Inference to the best explanation.",
+  desc:"Peirce's reasoning from surprising facts to the likeliest cause.",
+  svg:`<svg viewBox="0 0 660 430" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="330" y="30" text-anchor="middle" font-family="Cormorant Garamond" font-size="24" font-weight="600" fill="#e3c89a">Inference to the best explanation</text>
+    <!-- surprising fact -->
+    <rect x="230" y="52" width="200" height="48" rx="9" fill="#211e17" stroke="#7b9bb0"/>
+    <text x="330" y="74" text-anchor="middle" font-size="13" fill="#9bbcd0" font-weight="600">Surprising fact: R</text>
+    <text x="330" y="92" text-anchor="middle" font-size="10" fill="#7d7563">"the streets are wet"</text>
+    <!-- candidate explanations -->
+    <line x1="280" y1="100" x2="160" y2="140" stroke="#3a3528"/>
+    <line x1="330" y1="100" x2="330" y2="140" stroke="#3a3528"/>
+    <line x1="380" y1="100" x2="500" y2="140" stroke="#3a3528"/>
+    <rect x="70" y="142" width="170" height="48" rx="8" fill="rgba(201,169,110,.13)" stroke="#c9a96e"/>
+    <text x="155" y="164" text-anchor="middle" font-size="12" fill="#e3c89a" font-weight="600">It rained ✓</text>
+    <text x="155" y="181" text-anchor="middle" font-size="9.5" fill="#8a7448">the BEST explanation</text>
+    <rect x="245" y="142" width="170" height="48" rx="8" fill="#1a1812" stroke="#3a3528"/>
+    <text x="330" y="164" text-anchor="middle" font-size="11.5" fill="#7d7563">a pipe burst</text>
+    <text x="330" y="181" text-anchor="middle" font-size="9.5" fill="#5e574a">possible…</text>
+    <rect x="420" y="142" width="170" height="48" rx="8" fill="#1a1812" stroke="#3a3528"/>
+    <text x="505" y="164" text-anchor="middle" font-size="11.5" fill="#7d7563">a street-cleaner</text>
+    <text x="505" y="181" text-anchor="middle" font-size="9.5" fill="#5e574a">possible…</text>
+    <!-- structure -->
+    <rect x="120" y="220" width="420" height="116" rx="11" fill="#16140f" stroke="#3a3528"/>
+    <text x="330" y="246" text-anchor="middle" font-size="11" fill="#c9a96e" font-weight="600" letter-spacing="1">THE PATTERN</text>
+    <text x="145" y="274" font-size="13" fill="#b4ab97">If S, then R</text>
+    <text x="380" y="274" font-size="10.5" fill="#7d7563">(if it rained, streets are wet)</text>
+    <text x="145" y="298" font-size="13" fill="#b4ab97">R is the case</text>
+    <line x1="140" y1="306" x2="520" y2="306" stroke="#c9a96e"/>
+    <text x="145" y="326" font-size="13" fill="#e3c89a" font-weight="600">∴ possibly S was the case</text>
+    <text x="330" y="364" text-anchor="middle" font-size="12" fill="#e6c3bb" font-style="italic">Not logical certainty — a probable, testable hypothesis.</text>
+    <text x="330" y="386" text-anchor="middle" font-size="11" fill="#7d7563">Peirce called this the "logic of discovery."</text>
+  </svg>`,
+  points:[
+    "<b>Abduction</b> (Peirce) = <b>inference to the best explanation</b>: an explanatory hypothesis is derived from a set of facts.",
+    "Structure: <i>If S then R; R is the case; therefore possibly S.</i> Fridge door open → 'my partner left it open' is the best of the candidate explanations.",
+    "It is <b>not</b> logical certainty — the wet street could be a burst pipe. Abduction yields a <b>plausible, testable hypothesis</b>, not proof.",
+    "Peirce sought a <b>logic of discovery</b>: rules for arriving at and testing such hypotheses.",
+    "Abduction adds <b>new hypothetical knowledge about causes</b> — sitting between deduction (certain, no new knowledge) and induction (new knowledge, no certainty)."
+  ],
+  hook:"Three engines: <b>Deduction</b> = certain, nothing new · <b>Induction</b> = general from cases · <b>Abduction</b> = best guess at the cause behind the facts."
+}
+];
+</script>
+<script>
+/* ============ LESSON DATA — part B (9–15) ============ */
+LESSONS.push(
+{
+  num:"09", tag:"Method", title:"Discovery vs Justification",
+  sub:"The messy birth of ideas vs the clean test of theories.",
+  desc:"Two contexts of science — and the rise of naturalistic epistemology.",
+  svg:`<svg viewBox="0 0 660 430" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="330" y="30" text-anchor="middle" font-family="Cormorant Garamond" font-size="24" font-weight="600" fill="#e3c89a">Where ideas come from vs. whether they hold</text>
+    <!-- discovery -->
+    <rect x="30" y="56" width="280" height="220" rx="13" fill="#2a1a16" stroke="#c08a9a" stroke-width="1.3"/>
+    <text x="170" y="84" text-anchor="middle" font-size="14" fill="#d4a4b2" font-weight="600">CONTEXT OF DISCOVERY</text>
+    <text x="170" y="104" text-anchor="middle" font-size="10.5" fill="#7d7563" font-style="italic">how ideas are actually invented</text>
+    <text x="170" y="142" text-anchor="middle" font-size="34">🛁</text>
+    <text x="170" y="166" text-anchor="middle" font-size="10.5" fill="#b4ab97">Archimedes in the bath</text>
+    <text x="170" y="196" text-anchor="middle" font-size="34">🍎</text>
+    <text x="170" y="220" text-anchor="middle" font-size="10.5" fill="#b4ab97">Newton &amp; the apple</text>
+    <text x="170" y="250" text-anchor="middle" font-size="10.5" fill="#c08a9a">historical · social · psychological</text>
+    <text x="170" y="266" text-anchor="middle" font-size="10" fill="#7d7563">studied by historians, psychologists</text>
+    <!-- justification -->
+    <rect x="350" y="56" width="280" height="220" rx="13" fill="#1c2a18" stroke="#7ea872" stroke-width="1.3"/>
+    <text x="490" y="84" text-anchor="middle" font-size="14" fill="#9cc090" font-weight="600">CONTEXT OF JUSTIFICATION</text>
+    <text x="490" y="104" text-anchor="middle" font-size="10.5" fill="#7d7563" font-style="italic">whether a theory is acceptable</text>
+    <g font-size="11.5" fill="#cfe3c6">
+      <text x="380" y="142">✓ What is the argument?</text>
+      <text x="380" y="168">✓ What are the data?</text>
+      <text x="380" y="194">✓ How strong are the links?</text>
+      <text x="380" y="220">✓ Norms for good theory?</text>
+    </g>
+    <text x="490" y="250" text-anchor="middle" font-size="10.5" fill="#7ea872">normative · logical · evidential</text>
+    <text x="490" y="266" text-anchor="middle" font-size="10" fill="#7d7563">traditional turf of philosophers</text>
+    <!-- bridge -->
+    <rect x="120" y="306" width="420" height="100" rx="11" fill="rgba(201,169,110,.1)" stroke="#c9a96e"/>
+    <text x="330" y="332" text-anchor="middle" font-size="13" fill="#e3c89a" font-weight="600">Naturalistic epistemology (Quine)</text>
+    <text x="330" y="358" text-anchor="middle" font-size="11.5" fill="#b4ab97">Studying how scientists actually reach beliefs becomes</text>
+    <text x="330" y="376" text-anchor="middle" font-size="11.5" fill="#b4ab97">part of science itself — epistemology "falls into place</text>
+    <text x="330" y="394" text-anchor="middle" font-size="11.5" fill="#b4ab97">as a chapter of psychology."</text>
+  </svg>`,
+  points:[
+    "Traditional empiricists split the <b>context of discovery</b> (how a theory is invented) from the <b>context of justification</b> (whether it's acceptable).",
+    "There is <b>no algorithm for discovery</b> — insights arrive through extrascientific accidents (Archimedes' bath, Newton's apple). That, they said, is psychology, not philosophy.",
+    "Philosophy was meant to guard only <b>justification</b>: the argument, the data, the strength of logical links, the norms for good theories.",
+    "Kuhn and others <b>oppose</b> the split: ignoring discovery ignores most of what scientists do and much that is relevant to rationality and conceptual change.",
+    "<b>Naturalistic epistemology</b> (Quine): epistemology becomes a chapter of psychology — an empirical inquiry into how scientists actually arrive at beliefs."
+  ],
+  hook:"<b>Discovery</b> = the messy bathtub & apple (psychology). <b>Justification</b> = the clean court of evidence (philosophy). Quine blurs the line: naturalise it."
+},
+{
+  num:"10", tag:"Observation", title:"Theory-Ladenness",
+  sub:"There is no pure, theory-neutral observation.",
+  desc:"Why Bacon's fact-collecting ideal fails — and what underdetermination means.",
+  svg:`<svg viewBox="0 0 660 440" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="330" y="30" text-anchor="middle" font-family="Cormorant Garamond" font-size="24" font-weight="600" fill="#e3c89a">No observation is innocent</text>
+    <!-- Bacon's dream vs reality -->
+    <rect x="30" y="52" width="280" height="120" rx="11" fill="#2a1a16" stroke="#c47b6e"/>
+    <text x="170" y="78" text-anchor="middle" font-size="13" fill="#e6c3bb" font-weight="600">Bacon's dream ✗</text>
+    <text x="170" y="104" text-anchor="middle" font-size="11" fill="#b4ab97">"Collect facts like a bee</text>
+    <text x="170" y="122" text-anchor="middle" font-size="11" fill="#b4ab97">gathers honey — laws will</text>
+    <text x="170" y="140" text-anchor="middle" font-size="11" fill="#b4ab97">appear automatically."</text>
+    <text x="170" y="160" text-anchor="middle" font-size="10" fill="#c47b6e" font-style="italic">But you always start with ideas.</text>
+    <rect x="350" y="52" width="280" height="120" rx="11" fill="#16140f" stroke="#c9a96e"/>
+    <text x="490" y="78" text-anchor="middle" font-size="13" fill="#e3c89a" font-weight="600">Theory-laden eye ✓</text>
+    <g transform="translate(490,118)">
+      <ellipse cx="0" cy="0" rx="46" ry="26" fill="none" stroke="#c9a96e" stroke-width="1.5"/>
+      <circle cx="0" cy="0" r="13" fill="rgba(201,169,110,.3)" stroke="#c9a96e"/>
+      <circle cx="0" cy="0" r="5" fill="#c9a96e"/>
+      <rect x="-48" y="-30" width="96" height="60" rx="6" fill="rgba(123,155,176,.12)" stroke="#7b9bb0" stroke-dasharray="3 3"/>
+    </g>
+    <text x="490" y="162" text-anchor="middle" font-size="10" fill="#8a7448" font-style="italic">we see through theory-tinted lenses</text>
+    <!-- underdetermination -->
+    <text x="330" y="206" text-anchor="middle" font-size="12" fill="#c9a96e" font-weight="600">Under-determination of theory by data</text>
+    <rect x="255" y="222" width="150" height="44" rx="9" fill="#211e17" stroke="#ece6d8"/>
+    <text x="330" y="248" text-anchor="middle" font-size="12" fill="#ece6d8">ONE data set</text>
+    <line x1="300" y1="266" x2="160" y2="300" stroke="#3a3528"/>
+    <line x1="330" y1="266" x2="330" y2="300" stroke="#3a3528"/>
+    <line x1="360" y1="266" x2="500" y2="300" stroke="#3a3528"/>
+    <rect x="90" y="302" width="140" height="40" rx="8" fill="#1a1812" stroke="#7b9bb0"/><text x="160" y="326" text-anchor="middle" font-size="11" fill="#9bbcd0">Theory A</text>
+    <rect x="260" y="302" width="140" height="40" rx="8" fill="#1a1812" stroke="#c08a9a"/><text x="330" y="326" text-anchor="middle" font-size="11" fill="#d4a4b2">Theory B</text>
+    <rect x="430" y="302" width="140" height="40" rx="8" fill="#1a1812" stroke="#7ea872"/><text x="500" y="326" text-anchor="middle" font-size="11" fill="#9cc090">Theory C</text>
+    <text x="330" y="364" text-anchor="middle" font-size="10.5" fill="#7d7563" font-style="italic">several theories can fit the same evidence</text>
+    <rect x="120" y="382" width="420" height="44" rx="10" fill="rgba(201,169,110,.1)" stroke="#c9a96e"/>
+    <text x="330" y="408" text-anchor="middle" font-family="Cormorant Garamond" font-size="16" font-style="italic" fill="#e3c89a">"All science is hypotheses, never dogmas." — Copi</text>
+  </svg>`,
+  points:[
+    "Bacon thought science just <b>collects facts</b> (like a bee) and laws appear automatically. But you always start from <b>preconceived ideas</b> — there is no pure observation.",
+    "To find laws, scientists must go beyond what's visible and <b>posit unobservables</b> (protons, gravitation, attitudes, the cognitive map).",
+    "Observation is <b>theory-laden</b>: what you see is shaped by your assumptions. A 'fact' is a statement about events that you hold to be true — never wholly independent.",
+    "Theories can be <b>under-determined by data</b>: several different theories may be compatible with the same dataset.",
+    "Empirical tests still matter — science stays <b>open to evidence and revision</b>, unlike dogma. As Copi put it, all general propositions of science are hypotheses, never dogmas."
+  ],
+  hook:"There is <b>no view from nowhere</b>. The eye wears theory-tinted glasses; one dataset can fit many theories. Facts are beliefs we hold true."
+},
+{
+  num:"11", tag:"Laws & Theories", title:"Laws, Theories & the Hierarchy",
+  sub:"Real laws vs accidental generalisations — and the levels of language.",
+  desc:"The counterfactual test, empirical vs theoretical laws, and Box 1.4's hierarchy.",
+  svg:`<svg viewBox="0 0 660 460" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="330" y="28" text-anchor="middle" font-family="Cormorant Garamond" font-size="23" font-weight="600" fill="#e3c89a">Real law or lucky accident?</text>
+    <!-- counterfactual test -->
+    <rect x="30" y="44" width="285" height="92" rx="11" fill="#1c2a18" stroke="#7ea872"/>
+    <text x="172" y="68" text-anchor="middle" font-size="12.5" fill="#9cc090" font-weight="600">LAW ✓ copper expands when heated</text>
+    <text x="172" y="92" text-anchor="middle" font-size="10.5" fill="#b4ab97">Take it to the Moon &amp; heat it →</text>
+    <text x="172" y="110" text-anchor="middle" font-size="11" fill="#cfe3c6">it would STILL expand</text>
+    <text x="172" y="128" text-anchor="middle" font-size="9.5" fill="#7ea872" font-style="italic">counterfactual-supporting</text>
+    <rect x="345" y="44" width="285" height="92" rx="11" fill="#2a1a16" stroke="#c47b6e"/>
+    <text x="487" y="68" text-anchor="middle" font-size="12.5" fill="#e6c3bb" font-weight="600">ACCIDENT ✗ my coins are silver</text>
+    <text x="487" y="92" text-anchor="middle" font-size="10.5" fill="#b4ab97">Put a copper coin in my pocket →</text>
+    <text x="487" y="110" text-anchor="middle" font-size="11" fill="#e6c3bb">it would NOT turn silver</text>
+    <text x="487" y="128" text-anchor="middle" font-size="9.5" fill="#c47b6e" font-style="italic">no necessity, just coincidence</text>
+    <!-- empirical vs theoretical -->
+    <text x="172" y="166" text-anchor="middle" font-size="11" fill="#c9a96e" font-weight="600">Two kinds of law</text>
+    <rect x="30" y="176" width="285" height="38" rx="8" fill="#211e17" stroke="#7b9bb0"/>
+    <text x="172" y="200" text-anchor="middle" font-size="11" fill="#9bbcd0">Empirical — only observables (Mendel's ratios)</text>
+    <rect x="30" y="220" width="285" height="38" rx="8" fill="#211e17" stroke="#c08a9a"/>
+    <text x="172" y="244" text-anchor="middle" font-size="11" fill="#d4a4b2">Theoretical — uses unobservables (genes)</text>
+    <text x="172" y="282" text-anchor="middle" font-size="10" fill="#7d7563" font-style="italic">theoretical laws unify &amp; reveal mechanisms</text>
+    <!-- hierarchy ladder (Box 1.4) -->
+    <text x="487" y="166" text-anchor="middle" font-size="11" fill="#c9a96e" font-weight="600">Hierarchy of language (Box 1.4)</text>
+    <g>
+      <rect x="365" y="176" width="245" height="30" rx="6" fill="rgba(201,169,110,.16)" stroke="#c9a96e"/><text x="487" y="196" text-anchor="middle" font-size="10.5" fill="#e3c89a">① Theories (partly unobservable)</text>
+      <rect x="365" y="210" width="245" height="30" rx="6" fill="rgba(201,169,110,.1)" stroke="#8a7448"/><text x="487" y="230" text-anchor="middle" font-size="10.5" fill="#cfc6b3">② Experimental laws</text>
+      <rect x="365" y="244" width="245" height="30" rx="6" fill="#211e17" stroke="#3a3528"/><text x="487" y="264" text-anchor="middle" font-size="10.5" fill="#b4ab97">③ Numeric values (P=1.4)</text>
+      <rect x="365" y="278" width="245" height="30" rx="6" fill="#16140f" stroke="#3a3528"/><text x="487" y="298" text-anchor="middle" font-size="10.5" fill="#7d7563">④ Primary data (readings)</text>
+    </g>
+    <text x="640" y="246" font-size="9.5" fill="#c9a96e" transform="rotate(-90 640 246)" text-anchor="middle">predictive power ↑</text>
+    <rect x="80" y="332" width="500" height="100" rx="11" fill="#16140f" stroke="#3a3528"/>
+    <text x="330" y="358" text-anchor="middle" font-size="12" fill="#c9a96e" font-weight="600">What separates a law from an accident?</text>
+    <text x="330" y="384" text-anchor="middle" font-size="12" fill="#ece6d8">Necessity + counterfactual support.</text>
+    <text x="330" y="408" text-anchor="middle" font-size="11.5" fill="#b4ab97">A genuine theory tells us <tspan fill="#e3c89a">more than we already knew</tspan>; Popper made</text>
+    <text x="330" y="426" text-anchor="middle" font-size="11.5" fill="#b4ab97"><tspan fill="#e3c89a">refutability</tspan> the hallmark of real science.</text>
+  </svg>`,
+  points:[
+    "A <b>law</b> is an empirical generalisation — ideally 'for all x, if P then Q' (e.g. frustration → aggression). But <b>not all generalisations are laws</b>.",
+    "The <b>counterfactual test</b> separates them: copper would expand even on the Moon (a real law); a copper coin would never turn silver (accidental generalisation).",
+    "<b>Empirical laws</b> use only observables (Mendelian ratios); <b>theoretical laws</b> invoke unobservables (genes, chromosomes) and so unify and reveal mechanisms.",
+    "Box 1.4 ranks language levels: <b>theories → experimental laws → numeric values → primary data</b>. Moving up, predictive power increases; lower levels interpret higher ones.",
+    "A genuine theory says <b>more than we already knew</b> — a commitment about the unobserved. Popper made <b>refutability</b> the hallmark of real science."
+  ],
+  hook:"<b>Moon test:</b> a real law holds even where conditions don't yet obtain (copper on the Moon). An accident (coins are silver) doesn't survive the counterfactual."
+},
+{
+  num:"12", tag:"Laws & Theories", title:"Models",
+  sub:"The bridge between abstract laws and concrete phenomena.",
+  desc:"Mini-theories, visualisable analogies, and modelling in psychology.",
+  svg:`<svg viewBox="0 0 660 430" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="330" y="30" text-anchor="middle" font-family="Cormorant Garamond" font-size="24" font-weight="600" fill="#e3c89a">Models mediate</text>
+    <!-- bridge -->
+    <rect x="34" y="64" width="150" height="64" rx="11" fill="#211e17" stroke="#7b9bb0"/>
+    <text x="109" y="92" text-anchor="middle" font-size="14" fill="#9bbcd0" font-weight="600">LAWS</text>
+    <text x="109" y="112" text-anchor="middle" font-size="10" fill="#7d7563">abstract, general</text>
+    <rect x="476" y="64" width="150" height="64" rx="11" fill="#211e17" stroke="#7ea872"/>
+    <text x="551" y="92" text-anchor="middle" font-size="14" fill="#9cc090" font-weight="600">PHENOMENA</text>
+    <text x="551" y="112" text-anchor="middle" font-size="10" fill="#7d7563">concrete, messy</text>
+    <rect x="240" y="58" width="180" height="76" rx="13" fill="rgba(201,169,110,.13)" stroke="#c9a96e" stroke-width="1.6"/>
+    <text x="330" y="86" text-anchor="middle" font-size="15" fill="#e3c89a" font-weight="600">MODEL</text>
+    <text x="330" y="106" text-anchor="middle" font-size="10" fill="#8a7448">interpretive description</text>
+    <text x="330" y="122" text-anchor="middle" font-size="10" fill="#8a7448">that grants access</text>
+    <line x1="184" y1="96" x2="238" y2="96" stroke="#c9a96e" stroke-width="1.5" marker-end="url(#am)"/>
+    <line x1="476" y1="96" x2="422" y2="96" stroke="#c9a96e" stroke-width="1.5" marker-end="url(#am2)"/>
+    <!-- examples -->
+    <text x="330" y="172" text-anchor="middle" font-size="11" fill="#c9a96e" font-weight="600" letter-spacing="1">EXAMPLES</text>
+    <g>
+      <circle cx="140" cy="240" r="42" fill="none" stroke="#7b9bb0" stroke-width="1.2"/>
+      <circle cx="140" cy="240" r="11" fill="#c08a9a"/>
+      <circle cx="182" cy="240" r="5" fill="#7ea872"/>
+      <circle cx="140" cy="198" r="5" fill="#7ea872"/>
+      <text x="140" y="300" text-anchor="middle" font-size="10.5" fill="#b4ab97">atom as solar system</text>
+    </g>
+    <g>
+      <rect x="290" y="214" width="36" height="26" rx="4" fill="#211e17" stroke="#ece6d8"/>
+      <rect x="350" y="214" width="36" height="26" rx="4" fill="#211e17" stroke="#ece6d8"/>
+      <line x1="326" y1="227" x2="350" y2="227" stroke="#c9a96e" marker-end="url(#am3)"/>
+      <text x="338" y="266" text-anchor="middle" font-size="10.5" fill="#b4ab97">boxes &amp; arrows</text>
+      <text x="338" y="282" text-anchor="middle" font-size="9.5" fill="#7d7563">(memory, attention)</text>
+    </g>
+    <g>
+      <text x="510" y="232" text-anchor="middle" font-size="20" fill="#9cc090">ƒ(x)</text>
+      <text x="510" y="266" text-anchor="middle" font-size="10.5" fill="#b4ab97">math equations</text>
+      <text x="510" y="282" text-anchor="middle" font-size="9.5" fill="#7d7563">(game theory, dynamics)</text>
+    </g>
+    <rect x="90" y="320" width="480" height="92" rx="11" fill="#16140f" stroke="#3a3528"/>
+    <text x="330" y="346" text-anchor="middle" font-size="12" fill="#c9a96e" font-weight="600">Modelling in psychology</text>
+    <text x="330" y="372" text-anchor="middle" font-size="11.5" fill="#b4ab97">Full laws are scarce — most explanation is <tspan fill="#e3c89a">models &amp; simulations</tspan>.</text>
+    <text x="330" y="392" text-anchor="middle" font-size="11.5" fill="#b4ab97"><tspan fill="#e3c89a">Graceful degradation</tspan> of damaged neural nets ≈ the aging brain →</text>
+    <text x="330" y="408" text-anchor="middle" font-size="11.5" fill="#b4ab97">taken as evidence for connectionist over symbolic models.</text>
+    <defs>
+      <marker id="am" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#c9a96e"/></marker>
+      <marker id="am2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#c9a96e"/></marker>
+      <marker id="am3" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0,0 L5,3 L0,6" fill="#c9a96e"/></marker>
+    </defs>
+  </svg>`,
+  points:[
+    "A <b>model</b> is a kind of mini-theory: a visualisable representation or analogy (the atom as coloured balls orbiting a core).",
+    "Models <b>mediate between laws and phenomena</b> — applying a law (e.g. gravity to a high tide) requires a model that redescribes water as mass attracted by the moon.",
+    "Bailer-Jones: a model is an <b>interpretive description that facilitates access</b> to a phenomenon — including analogies, diagrams, scale models and equations.",
+    "In psychology full laws are scarce, so most explanation is <b>low-level models</b>: boxes-and-arrows, computer simulations, flow diagrams.",
+    "Model success is taken as evidence: <b>graceful degradation</b> of a damaged network mirrors the aging brain — read as support for connectionist over symbolic models. But critics say a working model needn't equal the real system."
+  ],
+  hook:"A model is the <b>bridge</b>: abstract LAW ↔ messy PHENOMENON. Atom-as-solar-system, memory-as-boxes-and-arrows — a picture you can apply directly."
+},
+{
+  num:"13", tag:"Causation", title:"Causes & Causality",
+  sub:"Hume's regularity, correlation traps, and tangled causes.",
+  desc:"From constant conjunction to multiple, common and circular causation.",
+  svg:`<svg viewBox="0 0 660 450" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="330" y="28" text-anchor="middle" font-family="Cormorant Garamond" font-size="23" font-weight="600" fill="#e3c89a">What is a cause?</text>
+    <!-- Hume billiard -->
+    <rect x="30" y="44" width="285" height="96" rx="11" fill="#211e17" stroke="#7b9bb0"/>
+    <text x="172" y="68" text-anchor="middle" font-size="12.5" fill="#9bbcd0" font-weight="600">Hume: constant conjunction</text>
+    <circle cx="100" cy="104" r="14" fill="#ece6d8"/>
+    <line x1="118" y1="104" x2="158" y2="104" stroke="#c9a96e" marker-end="url(#ac1)"/>
+    <circle cx="180" cy="104" r="14" fill="#c9a96e"/>
+    <text x="240" y="100" font-size="10" fill="#b4ab97">we only see one event</text>
+    <text x="240" y="116" font-size="10" fill="#b4ab97">always follow another —</text>
+    <text x="240" y="132" font-size="10" fill="#c08a9a" font-style="italic">"necessity" is in our heads</text>
+    <!-- correlation trap -->
+    <rect x="345" y="44" width="285" height="96" rx="11" fill="#2a1a16" stroke="#c47b6e"/>
+    <text x="487" y="68" text-anchor="middle" font-size="12.5" fill="#e6c3bb" font-weight="600">Correlation ≠ cause</text>
+    <text x="487" y="92" text-anchor="middle" font-size="10.5" fill="#b4ab97">lampposts ↔ colon cancer</text>
+    <text x="455" y="118" text-anchor="middle" font-size="9.5" fill="#7d7563">both rise with…</text>
+    <rect x="420" y="122" width="135" height="14" rx="7" fill="rgba(201,169,110,.16)" stroke="#c9a96e"/>
+    <text x="487" y="132" text-anchor="middle" font-size="9" fill="#e3c89a">hidden cause: wealth</text>
+    <!-- INUS -->
+    <rect x="30" y="156" width="600" height="58" rx="10" fill="#16140f" stroke="#3a3528"/>
+    <text x="55" y="180" font-size="12" fill="#c9a96e" font-weight="600">INUS condition</text>
+    <text x="55" y="200" font-size="10.5" fill="#b4ab97">an <tspan fill="#ece6d8">I</tspan>nsufficient but <tspan fill="#ece6d8">N</tspan>on-redundant part of an <tspan fill="#ece6d8">U</tspan>nnecessary but <tspan fill="#ece6d8">S</tspan>ufficient condition</text>
+    <text x="430" y="190" font-size="10" fill="#7d7563" font-style="italic">e.g. a short circuit causing a fire</text>
+    <!-- tangles -->
+    <text x="330" y="244" text-anchor="middle" font-size="11" fill="#c9a96e" font-weight="600" letter-spacing="1">REAL CAUSAL TANGLES</text>
+    <g>
+      <rect x="34" y="260" width="190" height="78" rx="9" fill="#1a1812" stroke="#3a3528"/>
+      <text x="129" y="282" text-anchor="middle" font-size="11.5" fill="#e3c89a" font-weight="600">Common cause</text>
+      <text x="129" y="304" text-anchor="middle" font-size="10" fill="#b4ab97">smoking → yellow fingers</text>
+      <text x="129" y="320" text-anchor="middle" font-size="10" fill="#b4ab97">smoking → lung cancer</text>
+    </g>
+    <g>
+      <rect x="236" y="260" width="190" height="78" rx="9" fill="#1a1812" stroke="#3a3528"/>
+      <text x="331" y="282" text-anchor="middle" font-size="11.5" fill="#e3c89a" font-weight="600">Multiple causes</text>
+      <text x="331" y="304" text-anchor="middle" font-size="10" fill="#b4ab97">violent crime ← heat,</text>
+      <text x="331" y="320" text-anchor="middle" font-size="10" fill="#b4ab97">poverty, density…</text>
+    </g>
+    <g>
+      <rect x="438" y="260" width="190" height="78" rx="9" fill="#1a1812" stroke="#3a3528"/>
+      <text x="533" y="282" text-anchor="middle" font-size="11.5" fill="#e3c89a" font-weight="600">Circular causation</text>
+      <text x="533" y="304" text-anchor="middle" font-size="10" fill="#b4ab97">perception ⇄ movement</text>
+      <text x="533" y="320" text-anchor="middle" font-size="10" fill="#b4ab97">in a roaming animal</text>
+    </g>
+    <rect x="90" y="356" width="480" height="76" rx="11" fill="rgba(201,169,110,.1)" stroke="#c9a96e"/>
+    <text x="330" y="382" text-anchor="middle" font-size="12" fill="#e3c89a" font-weight="600">"The" cause depends on your interest</text>
+    <text x="330" y="406" text-anchor="middle" font-size="11" fill="#b4ab97">An assassination: extremism? lax security? bullet physics?</text>
+    <text x="330" y="424" text-anchor="middle" font-size="11" fill="#b4ab97">One person's cause is another's background assumption.</text>
+    <defs><marker id="ac1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#c9a96e"/></marker></defs>
+  </svg>`,
+  points:[
+    "<b>Hume</b>: causality is just <b>constant conjunction</b> — we see one event always follow another and feel a 'necessity' that is really in our heads (the regularity view).",
+    "<b>Correlation isn't causation</b>: lampposts correlate with colon cancer, but both ride on a hidden common cause (wealth → more lampposts and more red meat).",
+    "The <b>INUS condition</b> refines Hume: a cause is an insufficient but non-redundant part of an unnecessary but sufficient condition (a short circuit causing a fire).",
+    "Real systems show <b>common causes</b> (smoking → yellow fingers + cancer), <b>multiple causes</b> (crime ← heat, poverty…) and <b>circular causation</b> (perception ⇄ movement).",
+    "What counts as '<b>the</b>' cause is <b>context-dependent</b>: for an assassination — extremism, lax security, or bullet physics — depending on your explanatory interest. Simple 'billiard-ball' causality is inadequate for life and mind."
+  ],
+  hook:"Causation is messy: <b>correlation ≠ cause</b> (lampposts/cancer), causes are <b>multiple, common & circular</b>, and 'the' cause depends on what you're asking."
+},
+{
+  num:"14", tag:"Causation", title:"Causal Laws & Interventionism",
+  sub:"Nagel's conditions and the manipulation view of cause.",
+  desc:"When laws count as causal — and Woodward's intervention test.",
+  svg:`<svg viewBox="0 0 660 440" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="330" y="30" text-anchor="middle" font-family="Cormorant Garamond" font-size="24" font-weight="600" fill="#e3c89a">When is a law causal?</text>
+    <!-- Nagel's 4 conditions -->
+    <text x="180" y="62" text-anchor="middle" font-size="12" fill="#c9a96e" font-weight="600">Nagel's 4 conditions</text>
+    <g font-size="11">
+      <rect x="30" y="74" width="300" height="40" rx="8" fill="#211e17" stroke="#7ea872"/>
+      <text x="48" y="92" fill="#9cc090" font-weight="600">①</text><text x="68" y="92" fill="#ece6d8">Invariable: necessary &amp; sufficient</text><text x="68" y="107" fill="#7d7563" font-size="9.5">cause always brings effect</text>
+      <rect x="30" y="120" width="300" height="40" rx="8" fill="#211e17" stroke="#7ea872"/>
+      <text x="48" y="138" fill="#9cc090" font-weight="600">②</text><text x="68" y="138" fill="#ece6d8">Spatially connected</text><text x="68" y="153" fill="#7d7563" font-size="9.5">same domain or a chain between</text>
+      <rect x="30" y="166" width="300" height="40" rx="8" fill="#211e17" stroke="#7ea872"/>
+      <text x="48" y="184" fill="#9cc090" font-weight="600">③</text><text x="68" y="184" fill="#ece6d8">Temporal: cause precedes effect</text><text x="68" y="199" fill="#7d7563" font-size="9.5">and is close to it in time</text>
+      <rect x="30" y="212" width="300" height="40" rx="8" fill="#211e17" stroke="#7ea872"/>
+      <text x="48" y="230" fill="#9cc090" font-weight="600">④</text><text x="68" y="230" fill="#ece6d8">Asymmetrical</text><text x="68" y="245" fill="#7d7563" font-size="9.5">sun→shadow, not shadow→sun</text>
+    </g>
+    <text x="180" y="280" text-anchor="middle" font-size="10" fill="#c47b6e" font-style="italic">By these, many laws aren't causal</text>
+    <text x="180" y="296" text-anchor="middle" font-size="10" fill="#7d7563">(water = H₂O isn't; Boyle's law isn't)</text>
+    <!-- Interventionism -->
+    <text x="490" y="62" text-anchor="middle" font-size="12" fill="#c9a96e" font-weight="600">Interventionism (Woodward)</text>
+    <rect x="360" y="78" width="260" height="170" rx="11" fill="#16140f" stroke="#3a3528"/>
+    <circle cx="410" cy="140" r="20" fill="#211e17" stroke="#ece6d8"/><text x="410" y="144" text-anchor="middle" font-size="11" fill="#ece6d8">X</text>
+    <line x1="430" y1="140" x2="500" y2="140" stroke="#7d7563" stroke-width="1.5" marker-end="url(#aw)"/>
+    <circle cx="540" cy="140" r="20" fill="#211e17" stroke="#ece6d8"/><text x="540" y="144" text-anchor="middle" font-size="11" fill="#ece6d8">Y</text>
+    <line x1="410" y1="100" x2="410" y2="118" stroke="#c9a96e" stroke-width="2.5" marker-end="url(#aw2)"/>
+    <text x="410" y="94" text-anchor="middle" font-size="10.5" fill="#e3c89a" font-weight="600">intervene!</text>
+    <text x="490" y="186" text-anchor="middle" font-size="10.5" fill="#b4ab97">Wiggle X by experiment.</text>
+    <text x="490" y="204" text-anchor="middle" font-size="10.5" fill="#b4ab97">If Y changes → X causes Y.</text>
+    <text x="490" y="228" text-anchor="middle" font-size="10" fill="#8a7448" font-style="italic">cause = a point of manipulation</text>
+    <rect x="90" y="316" width="480" height="104" rx="11" fill="rgba(201,169,110,.1)" stroke="#c9a96e"/>
+    <text x="330" y="342" text-anchor="middle" font-size="12" fill="#e3c89a" font-weight="600">Loosening the conditions for psychology</text>
+    <text x="330" y="368" text-anchor="middle" font-size="11.5" fill="#b4ab97">Few psychological laws are strictly necessary — frustration</text>
+    <text x="330" y="386" text-anchor="middle" font-size="11.5" fill="#b4ab97">doesn't always cause aggression. Hence <tspan fill="#e3c89a">ceteris paribus</tspan> laws</text>
+    <text x="330" y="404" text-anchor="middle" font-size="11.5" fill="#b4ab97">(other things equal) and merely <tspan fill="#e3c89a">statistical</tspan> laws.</text>
+    <defs>
+      <marker id="aw" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#7d7563"/></marker>
+      <marker id="aw2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#c9a96e"/></marker>
+    </defs>
+  </svg>`,
+  points:[
+    "<b>Nagel's four conditions</b> for a causal law: (1) invariable — cause is necessary & sufficient; (2) spatially connected; (3) cause precedes effect; (4) asymmetrical.",
+    "By these criteria <b>many laws aren't causal</b>: water = H₂O is a law but not a cause; Boyle's law has P and V changing together.",
+    "Few psychological laws are <b>necessary</b> — frustration doesn't always cause aggression — so we use <b>ceteris paribus</b> (other things equal) and <b>statistical</b> laws.",
+    "<b>Interventionism</b> (Woodward): a cause is a <b>point of intervention</b>. Whatever matters about causal explanation is captured by experimental manipulation.",
+    "A causal claim refers to the outcome of a (possibly hypothetical) <b>experiment</b>: wiggle X; if Y changes, X causes Y. Causation ties tightly to human agency and intervention."
+  ],
+  hook:"Causal law = <b>necessary, ordered, asymmetrical</b> (Nagel). Interventionism's shortcut: <b>wiggle the cause</b> — if the effect moves, it's causal."
+},
+{
+  num:"15", tag:"Synthesis", title:"The Empirical Cycle",
+  sub:"De Groot: how data and theory turn the same wheel.",
+  desc:"Observation → induction → deduction → testing → evaluation, forever.",
+  svg:`<svg viewBox="0 0 660 470" xmlns="http://www.w3.org/2000/svg" font-family="DM Sans">
+    <text x="330" y="30" text-anchor="middle" font-family="Cormorant Garamond" font-size="24" font-weight="600" fill="#e3c89a">A never-ending wheel</text>
+    <!-- circular arrows -->
+    <circle cx="330" cy="240" r="130" fill="none" stroke="#3a3528" stroke-width="1.5" stroke-dasharray="3 6"/>
+    <!-- 5 stages around circle -->
+    <g>
+      <circle cx="330" cy="110" r="44" fill="#211e17" stroke="#7b9bb0" stroke-width="1.4"/>
+      <text x="330" y="106" text-anchor="middle" font-size="12" fill="#9bbcd0" font-weight="600">1 Observe</text>
+      <text x="330" y="124" text-anchor="middle" font-size="9" fill="#7d7563">systematic perception</text>
+    </g>
+    <g>
+      <circle cx="453" cy="195" r="44" fill="#211e17" stroke="#c08a9a" stroke-width="1.4"/>
+      <text x="453" y="186" text-anchor="middle" font-size="12" fill="#d4a4b2" font-weight="600">2 Induce</text>
+      <text x="453" y="202" text-anchor="middle" font-size="8.5" fill="#7d7563">+ abduce</text>
+      <text x="453" y="214" text-anchor="middle" font-size="8.5" fill="#7d7563">→ hypothesis</text>
+    </g>
+    <g>
+      <circle cx="406" cy="340" r="44" fill="#211e17" stroke="#7ea872" stroke-width="1.4"/>
+      <text x="406" y="332" text-anchor="middle" font-size="12" fill="#9cc090" font-weight="600">3 Deduce</text>
+      <text x="406" y="348" text-anchor="middle" font-size="8.5" fill="#7d7563">predictions</text>
+      <text x="406" y="360" text-anchor="middle" font-size="8.5" fill="#7d7563">(operationalize)</text>
+    </g>
+    <g>
+      <circle cx="254" cy="340" r="44" fill="#211e17" stroke="#c9a96e" stroke-width="1.4"/>
+      <text x="254" y="336" text-anchor="middle" font-size="12" fill="#e3c89a" font-weight="600">4 Test</text>
+      <text x="254" y="354" text-anchor="middle" font-size="8.5" fill="#7d7563">vs new data</text>
+    </g>
+    <g>
+      <circle cx="207" cy="195" r="44" fill="#211e17" stroke="#b4ab97" stroke-width="1.4"/>
+      <text x="207" y="190" text-anchor="middle" font-size="12" fill="#cfc6b3" font-weight="600">5 Evaluate</text>
+      <text x="207" y="208" text-anchor="middle" font-size="8.5" fill="#7d7563">feedback → revise</text>
+    </g>
+    <!-- arrows between -->
+    <path d="M372 128 Q 420 145 432 162" fill="none" stroke="#c9a96e" stroke-width="1.6" marker-end="url(#ae)"/>
+    <path d="M455 239 Q 450 290 432 308" fill="none" stroke="#c9a96e" stroke-width="1.6" marker-end="url(#ae)"/>
+    <path d="M362 355 Q 330 365 298 355" fill="none" stroke="#c9a96e" stroke-width="1.6" marker-end="url(#ae)"/>
+    <path d="M228 308 Q 210 290 205 239" fill="none" stroke="#c9a96e" stroke-width="1.6" marker-end="url(#ae)"/>
+    <path d="M228 162 Q 240 145 288 128" fill="none" stroke="#c9a96e" stroke-width="1.6" marker-end="url(#ae)"/>
+    <text x="330" y="236" text-anchor="middle" font-size="11" fill="#8a7448" font-style="italic">data ⇄ theory</text>
+    <text x="330" y="254" text-anchor="middle" font-size="11" fill="#8a7448" font-style="italic">induction ⇄ deduction</text>
+    <rect x="120" y="424" width="420" height="40" rx="9" fill="rgba(201,169,110,.1)" stroke="#c9a96e"/>
+    <text x="330" y="449" text-anchor="middle" font-size="11.5" fill="#e3c89a">Surprises in testing can spark <tspan font-style="italic">serendipity</tspan> — new discovery.</text>
+    <defs><marker id="ae" markerWidth="9" markerHeight="9" refX="6" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#c9a96e"/></marker></defs>
+  </svg>`,
+  points:[
+    "De Groot's <b>empirical cycle</b> ties data and theory together in five stages: <b>observation → induction → deduction → testing → evaluation</b>.",
+    "<b>Observation</b> is systematic perception, already guided by implicit hypotheses; <b>induction/abduction</b> then makes an explicit, testable hypothesis.",
+    "<b>Deduction</b> derives predictions, often needing <b>operationalization</b> — defining a concept by a measurement operation (intelligence = test score).",
+    "<b>Testing</b> confronts predictions with <b>new</b> data (a fresh population); <b>evaluation</b> feeds results back to revise, qualify or amend the theory.",
+    "The cycle is <b>never-ending</b>: both the context of discovery and justification are in play, and <b>serendipity</b> can turn surprises into new discoveries. Induction is as indispensable as deduction."
+  ],
+  hook:"<b>O-I-D-T-E</b>, then round again. Observe, Induce, Deduce, Test, Evaluate — the wheel where induction and deduction need each other endlessly."
+}
+);
+</script>
+<script>
+/* ============ FLASHCARDS ============ */
+const CARDS = [
+  {cat:"Epistemology", term:"Epistemology", def:"The branch of philosophy that evaluates the claims of <b>knowledge</b> — what knowledge is and how it can be justified."},
+  {cat:"Epistemology", term:"Knowledge", def:"Classically, <b>justified true belief</b>. The open questions are how beliefs are fixed and what counts as justification."},
+  {cat:"Epistemology", term:"Realism", def:"Knowledge <b>corresponds to reality</b> — our terms refer to real things; the mind mirrors the world. Truth = correspondence."},
+  {cat:"Epistemology", term:"Idealism", def:"The world as we know it is a <b>creation of the mind</b>, a subjective construction. Truth = coherence with the rest of our knowledge."},
+  {cat:"Epistemology", term:"Relativism", def:"Knowledge is collectively/socially determined; there is <b>no universal, objective</b> knowledge — every group may have its own truth."},
+  {cat:"Epistemology", term:"Social constructionism", def:"The view that much of science is a <b>human construction</b> reflecting social interaction more than the world itself."},
+  {cat:"Epistemology", term:"Pragmatism", def:"Knowledge is <b>functional and interactive</b> — coping with the world by acting on it. Truth = success. The authors' middle position."},
+  {cat:"Epistemology", term:"Correspondence theory", def:"Theory of truth in <b>realism</b>: a claim is true if it matches (corresponds to) the way the world is."},
+  {cat:"Epistemology", term:"Coherence theory", def:"Theory of truth in <b>idealism</b>: a claim is true if it is consistent with the rest of our knowledge (e.g. mathematical proof)."},
+  {cat:"Epistemology", term:"God's-eye point of view", def:"Putnam's term for the impossible realist standpoint of matching our theories against <b>nature's own representation</b> — you can't step outside theory."},
+  {cat:"Epistemology", term:"Convergent realism", def:"Boyd's idea that the <b>empirical success</b> of converging theories shows their terms are real. Laudan objects: false theories can also succeed."},
+  {cat:"Common Sense", term:"Manifest image", def:"Sellars: the world of <b>objects and persons of common sense</b> — tables, colours, feelings."},
+  {cat:"Common Sense", term:"Scientific image", def:"Sellars: the world of <b>particles and forces</b> postulated by advanced science — atoms, neurons, H₂O."},
+  {cat:"Common Sense", term:"Stereoscopic vision", def:"Sellars' fourth option: hold <b>both images as real</b> and unite them, since science is unfinished and can re-create common-sense concepts."},
+  {cat:"Common Sense", term:"Science as organised common sense", def:"Nagel's dictum: the difference between science and common sense is one of <b>degree, not principle</b> — a regimented outgrowth of human practice."},
+  {cat:"Common Sense", term:"Reduction", def:"The <b>most distinctive mark</b> of science: ignoring accidental detail and reducing phenomena to underlying principles (water/ice/steam = one substance)."},
+  {cat:"Arguments", term:"Deductive argument", def:"The premises <b>contain</b> the conclusion; if valid and the premises true, the conclusion <b>must</b> be true. Certain, but no new knowledge."},
+  {cat:"Arguments", term:"Validity vs truth", def:"<b>Validity</b> is about form (arrangement); <b>truth</b> is about content. A valid argument with a false premise gives a false conclusion."},
+  {cat:"Arguments", term:"Syllogism", def:"A well-known conclusive (deductive) argument form, e.g. All humans are mortal; Socrates is human; therefore Socrates is mortal."},
+  {cat:"Arguments", term:"Inductive argument", def:"<b>Generalisation</b> from cases of lesser scope — what's true of many is likely true of all. New knowledge, but never certain; support comes by degrees."},
+  {cat:"Arguments", term:"Problem of induction", def:"Hume: induction has <b>no logical justification</b>. 'Nature is uniform' is itself inductive (circular); we generalise by habit, a psychological step."},
+  {cat:"Arguments", term:"Raven paradox", def:"Shows induction can't be logically formalised: a non-black non-raven (a white sneaker) would logically 'confirm' that all ravens are black."},
+  {cat:"Arguments", term:"Abduction", def:"Peirce: <b>inference to the best explanation</b>. From facts to the likeliest hypothesis — new hypothetical knowledge about causes, but not certain."},
+  {cat:"Method", term:"Context of discovery", def:"The <b>historical, social and psychological</b> circumstances of how a theory was invented (Archimedes' bath, Newton's apple)."},
+  {cat:"Method", term:"Context of justification", def:"The <b>normative criteria</b> for holding a theory true or acceptable — its argument, data, logical strength and norms."},
+  {cat:"Method", term:"Naturalistic epistemology", def:"Quine's project: epistemology becomes part of natural science — it 'falls into place as a <b>chapter of psychology</b>.'"},
+  {cat:"Method", term:"Operationalization", def:"Defining a concept by its <b>measurement operations</b>, e.g. intelligence = the score on an intelligence test."},
+  {cat:"Observation", term:"Theory-ladenness", def:"Observation is always partly determined by one's <b>theoretical assumptions</b>; there is no neutral, theory-free data."},
+  {cat:"Observation", term:"Under-determination", def:"Several different theories may be <b>compatible with the same dataset</b>; data alone doesn't fix the theory."},
+  {cat:"Laws & Theories", term:"Theory", def:"De Groot: a system of logically interrelated, non-contradictory statements about an area of reality, formulated so that <b>testable hypotheses</b> follow."},
+  {cat:"Laws & Theories", term:"Law vs accidental generalisation", def:"A real law is <b>counterfactual-supporting</b> (copper would expand even on the Moon); 'all my coins are silver' is mere coincidence."},
+  {cat:"Laws & Theories", term:"Empirical vs theoretical law", def:"Empirical laws contain only <b>observables</b> (Mendelian ratios); theoretical laws invoke <b>unobservables</b> (genes), unifying and revealing mechanisms."},
+  {cat:"Laws & Theories", term:"Model", def:"A mini-theory: an <b>interpretive description / visualisable analogy</b> that mediates between abstract laws and concrete phenomena."},
+  {cat:"Laws & Theories", term:"Refutability", def:"Popper's hallmark of real science: a genuine theory makes predictions that <b>could be proven wrong</b> by future situations."},
+  {cat:"Causation", term:"Constant conjunction", def:"Hume's regularity view: a cause is just one event <b>always followed</b> by another; the felt 'necessity' is psychological, in our heads."},
+  {cat:"Causation", term:"INUS condition", def:"A cause is an <b>I</b>nsufficient but <b>N</b>on-redundant part of an <b>U</b>nnecessary but <b>S</b>ufficient condition (e.g. a short circuit for a fire)."},
+  {cat:"Causation", term:"Correlation vs causation", def:"Co-variation needn't be causal — lampposts correlate with colon cancer via a <b>hidden common cause</b> (wealth)."},
+  {cat:"Causation", term:"Nagel's causal conditions", def:"For a causal law: invariable (necessary & sufficient), spatially connected, cause precedes effect, and <b>asymmetrical</b>."},
+  {cat:"Causation", term:"Interventionism", def:"Woodward: a cause is a <b>point of intervention</b> — causal claims describe what would happen under a (possibly hypothetical) experiment."},
+  {cat:"Causation", term:"Ceteris paribus law", def:"A law that holds only '<b>other things being equal</b>' — used in psychology because few laws are strictly necessary (frustration ≠ always aggression)."},
+  {cat:"Synthesis", term:"Empirical cycle", def:"De Groot's five-stage wheel: <b>observation → induction → deduction → testing → evaluation</b>, then round again."},
+  {cat:"Synthesis", term:"Serendipity", def:"Unexpected results in the testing/evaluation stage leading to <b>new discoveries</b> beyond the hypothesis being tested."}
+];
+
+/* ============ MCQ ============ */
+const QUIZ = [
+  {q:"According to the authors, knowledge is best characterised as:", opts:["A passive mirror of reality (realism)","A purely subjective construction (idealism)","An interactive coping with the world (pragmatism)","A logically certain deductive system"], correct:2, why:"The authors adopt <b>pragmatism</b>: knowledge is functional and interactive — a methodologically regulated form of action (coping), avoiding both the realist and idealist extremes."},
+  {q:"In the realist theory of truth, a theory is true when it:", opts:["Coheres with the rest of our knowledge","Corresponds with the way the world is","Succeeds in practical application","Is derived from self-evident axioms"], correct:1, why:"Realism uses the <b>correspondence</b> theory of truth — theories are true if they correspond to nature. Coherence belongs to idealism; success to pragmatism."},
+  {q:"The 'God's-eye point of view' problem (Putnam) shows that literal realism is impossible because:", opts:["The world does not really exist","Any comparison of theory with reality must itself be a theory","Scientists always falsify their data","Mathematics cannot describe nature"], correct:1, why:"There is no way to <b>step outside theory</b> to compare it directly with the world — any such check would itself have to be stated as a theory. So objectivity in the literal sense is unreachable."},
+  {q:"Sellars' 'manifest image' refers to:", opts:["The world of particles and forces posited by science","The world of objects and persons of common sense","An optical illusion produced by the brain","A purely mathematical model of reality"], correct:1, why:"The <b>manifest image</b> is the common-sense world of persons, tables and colours. The <b>scientific image</b> is the world of particles and forces."},
+  {q:"Which is identified as the MOST distinguishing feature of scientific knowledge?", opts:["Clarity","Revisability","Reduction","Objectivity"], correct:2, why:"<b>Reduction</b> — finding the hidden springs behind phenomena and reducing them to underlying principles — is singled out as the most distinctive mark of science."},
+  {q:"A deductive argument can be perfectly VALID yet still reach a FALSE conclusion when:", opts:["The reasoning form is flawed","One or more premises are false","It uses a transitive relation","It is also inductive"], correct:1, why:"Validity concerns <b>form</b> only. 'All politicians are liars…' is a valid syllogism but false because the premise is false. Truth needs both validity AND true premises."},
+  {q:"The key feature distinguishing inductive from deductive arguments is that induction:", opts:["Guarantees its conclusion with certainty","Produces a conclusion that goes beyond the evidence","Contains the conclusion within the premises","Cannot be used in science"], correct:1, why:"In induction the conclusion <b>always exceeds the evidence</b>, so it yields new knowledge but never deductive certainty — support comes only by degrees."},
+  {q:"Hume's conclusion about the problem of induction is that we make inductive inferences:", opts:["Through rigorous logical proof","By habit — a psychological, non-logical step","Only in mathematics","Using the raven paradox"], correct:1, why:"Hume argued there is no rational/logical foundation for induction. We expect the sun to rise from <b>habit</b>; trying to justify it via 'nature is uniform' is circular."},
+  {q:"Inference to the best explanation (abduction) was named by:", opts:["David Hume","Karl Popper","C.S. Peirce","W.V.O. Quine"], correct:2, why:"The pragmatist <b>C.S. Peirce</b> christened this reasoning 'abduction' — deriving the likeliest explanatory hypothesis from a set of facts."},
+  {q:"The distinction between the 'context of discovery' and the 'context of justification' concerns:", opts:["Two competing theories of truth","How ideas are invented vs. whether theories are acceptable","Empirical vs. theoretical laws","Necessary vs. sufficient conditions"], correct:1, why:"Discovery covers the <b>historical/psychological</b> birth of ideas (Newton's apple); justification covers the <b>normative</b> question of whether a finished theory holds up."},
+  {q:"'Naturalistic epistemology', initiated by Quine, holds that epistemology:", opts:["Should be abolished entirely","Falls into place as a chapter of psychology","Is purely a branch of logic","Can give us absolute certainty"], correct:1, why:"Quine argued epistemology becomes part of natural science — it 'simply falls into place as a <b>chapter of psychology</b>', studying how scientists actually form beliefs."},
+  {q:"The 'theory-ladenness' of observation means that:", opts:["Observations are completely objective","What we observe is shaped by our theoretical assumptions","Theories must avoid all observation","Only unobservable entities are real"], correct:1, why:"There is no pure, neutral observation. Facts are statements held true and are never independent of one's other beliefs — observation is partly determined by theory."},
+  {q:"Which best distinguishes a real law from an accidental generalisation?", opts:["Real laws are shorter","Real laws are counterfactual-supporting (hold even where conditions don't yet obtain)","Accidental generalisations use mathematics","Real laws are never revised"], correct:1, why:"Copper would expand even if heated on the Moon (a real, <b>counterfactual-supporting</b> law); a copper coin in your pocket would never turn silver — that's accidental."},
+  {q:"In the language hierarchy (Box 1.4), as you move from observation up toward theory:", opts:["Predictive power decreases","Predictive power increases","Everything becomes purely observable","The data becomes primary"], correct:1, why:"From primary data → numeric values → experimental laws → theories, <b>predictive power increases</b>; the lower, more concrete levels interpret the higher, abstract ones."},
+  {q:"The lampposts–colon cancer correlation illustrates that:", opts:["Removing lampposts prevents cancer","Correlation can arise from a hidden common cause","All correlations are causal","Cancer causes lampposts"], correct:1, why:"Both rise with <b>wealth</b> (more lampposts and more red-meat consumption). The correlation is real but not causal — a classic correlation-vs-causation trap."},
+  {q:"Woodward's interventionism defines a cause as:", opts:["A constant conjunction in the mind","A point of intervention / experimental manipulation","Any event that precedes another","A necessary and sufficient axiom"], correct:1, why:"Interventionism ties causation to <b>manipulation</b>: X causes Y if intervening to change X changes Y. Causal claims describe the outcome of a (possibly hypothetical) experiment."}
+];
+
+/* ============ STATE ============ */
+let curLesson = 0;
+let visited = new Set([0]);
+let fcFilter = "All";
+let fcOrder = CARDS.map((_,i)=>i);
+let quizState = {};
+
+/* ============ NAV ============ */
+const views = document.querySelectorAll('.view');
+const navBtns = document.querySelectorAll('#nav button');
+function showView(name){
+  views.forEach(v=>v.classList.toggle('active', v.id==='view-'+name));
+  navBtns.forEach(b=>b.classList.toggle('active', b.dataset.view===name));
+  window.scrollTo({top:0,behavior:'smooth'});
+  if(window.innerWidth<=760) closeNav();
+}
+navBtns.forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
+
+function toggleNav(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('scrim').classList.toggle('show');}
+function closeNav(){document.getElementById('sidebar').classList.remove('open');document.getElementById('scrim').classList.remove('show');}
+
+/* ============ OVERVIEW GRID ============ */
+const ovGrid = document.getElementById('ovGrid');
+LESSONS.forEach((l,i)=>{
+  const c=document.createElement('button');
+  c.className='lcard';
+  c.innerHTML=`<div class="num">Lesson ${l.num}</div><div class="ttl">${l.title}</div><div class="desc">${l.desc}</div><span class="tag">${l.tag}</span>`;
+  c.addEventListener('click',()=>{goLesson(i);showView('lessons');});
+  ovGrid.appendChild(c);
+});
+
+/* ============ LESSON RENDER ============ */
+const host=document.getElementById('lessonHost');
+function renderLesson(i){
+  const l=LESSONS[i];
+  const pts=l.points.map((p,n)=>`<li><span class="b">${n+1}</span><span>${p}</span></li>`).join('');
+  host.innerHTML=`<div class="lesson">
+    <div class="l-eyebrow">${l.tag}</div>
+    <h3 class="l-title">${l.title}</h3>
+    <p class="l-sub">${l.sub}</p>
+    <div class="lesson-body">
+      <div>
+        <div class="diagram-box">${l.svg}</div>
+        <div class="diagram-cap">Lesson ${l.num} · read the diagram first</div>
+      </div>
+      <aside class="lesson-aside">
+        <div class="points-h">Key points</div>
+        <ul class="points">${pts}</ul>
+        <div class="hook">
+          <div class="hk-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 00-4 12.7c.6.5 1 1.3 1 2.3h6c0-1 .4-1.8 1-2.3A7 7 0 0012 2z"/></svg> Memory hook</div>
+          <p>${l.hook}</p>
+        </div>
+      </aside>
+    </div>
+  </div>`;
+  document.getElementById('lessonCount').textContent=`Lesson ${l.num} / 15`;
+  document.getElementById('prevBtn').disabled=(i===0);
+  document.getElementById('nextBtn').disabled=(i===LESSONS.length-1);
+  visited.add(i);
+  updateProgress();
+}
+function goLesson(i){curLesson=Math.max(0,Math.min(LESSONS.length-1,i));renderLesson(curLesson);}
+function lessonStep(d){goLesson(curLesson+d);window.scrollTo({top:0,behavior:'smooth'});}
+function updateProgress(){
+  const pct=Math.round((visited.size/LESSONS.length)*100);
+  document.getElementById('globalProg').style.width=pct+'%';
+}
+
+/* ============ FLASHCARDS ============ */
+const cats=["All",...Array.from(new Set(CARDS.map(c=>c.cat)))];
+const chipWrap=document.getElementById('fcChips');
+cats.forEach(cat=>{
+  const ch=document.createElement('button');
+  ch.className='chip'+(cat==='All'?' active':'');
+  ch.textContent=cat;
+  ch.addEventListener('click',()=>{fcFilter=cat;document.querySelectorAll('#fcChips .chip').forEach(x=>x.classList.toggle('active',x.textContent===cat));renderCards();});
+  chipWrap.appendChild(ch);
+});
+const fcGrid=document.getElementById('fcGrid');
+function renderCards(){
+  fcGrid.innerHTML='';
+  const list=fcOrder.map(i=>CARDS[i]).filter(c=>fcFilter==='All'||c.cat===fcFilter);
+  list.forEach(c=>{
+    const card=document.createElement('div');
+    card.className='flip';
+    card.innerHTML=`<div class="flip-in">
+      <div class="flip-face flip-front">
+        <div class="ftag">${c.cat}</div>
+        <div class="fterm">${c.term}</div>
+        <div class="fhint"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 109-9 9 9 0 00-6.4 2.6L3 8"/><path d="M3 3v5h5"/></svg> tap to flip</div>
+      </div>
+      <div class="flip-face flip-back">
+        <div class="fdef">${c.def}</div>
+        <div class="fcat">${c.term}</div>
+      </div>
+    </div>`;
+    card.addEventListener('click',()=>card.classList.toggle('flipped'));
+    fcGrid.appendChild(card);
+  });
+  document.getElementById('fcMeta').textContent=`${list.length} card${list.length!==1?'s':''} ${fcFilter!=='All'?'· '+fcFilter:'· all topics'}`;
+}
+function shuffleCards(){for(let i=fcOrder.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[fcOrder[i],fcOrder[j]]=[fcOrder[j],fcOrder[i]];}renderCards();}
+function resetCards(){fcOrder=CARDS.map((_,i)=>i);fcFilter='All';document.querySelectorAll('#fcChips .chip').forEach(x=>x.classList.toggle('active',x.textContent==='All'));renderCards();}
+
+/* ============ MCQ ============ */
+const quizHost=document.getElementById('quizHost');
+const LETTERS=['A','B','C','D'];
+function renderQuiz(){
+  quizHost.innerHTML='';
+  QUIZ.forEach((item,qi)=>{
+    const q=document.createElement('div');
+    q.className='q';
+    const answered=quizState[qi]!==undefined;
+    const opts=item.opts.map((o,oi)=>{
+      let cls='opt';
+      if(answered){
+        cls+=' locked';
+        if(oi===item.correct) cls+=' correct';
+        else if(oi===quizState[qi]) cls+=' wrong';
+        else cls+=' dim';
+      }
+      return `<button class="${cls}" ${answered?'':`onclick="answer(${qi},${oi})"`}><span class="ol">${LETTERS[oi]}</span><span>${o}</span></button>`;
+    }).join('');
+    const ok=answered&&quizState[qi]===item.correct;
+    const exp=answered?`<div class="explain show ${ok?'ok':'no'}"><div class="et">${ok?'✓ Correct':'✗ Not quite'}</div>${item.why}</div>`:'';
+    q.innerHTML=`<div class="qnum">Question ${qi+1} of ${QUIZ.length}</div><div class="qtext">${item.q}</div><div class="opts">${opts}</div>${exp}`;
+    quizHost.appendChild(q);
+  });
+  updateScore();
+}
+function answer(qi,oi){if(quizState[qi]!==undefined)return;quizState[qi]=oi;renderQuiz();}
+function updateScore(){
+  const ans=Object.keys(quizState).length;
+  const correct=Object.keys(quizState).filter(k=>quizState[k]===QUIZ[k].correct).length;
+  document.getElementById('scoreVal').textContent=`${correct} / ${QUIZ.length}`;
+  document.getElementById('answeredVal').textContent=ans;
+}
+function resetQuiz(){quizState={};renderQuiz();window.scrollTo({top:0,behavior:'smooth'});}
+
+/* ============ INIT ============ */
+renderLesson(0);
+renderCards();
+renderQuiz();
+</script>
+</body>
+</html>
